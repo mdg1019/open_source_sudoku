@@ -1,3 +1,5 @@
+typedef PuzzleGrid = List<List<int>>;
+
 class Location {
   final int row;
   final int column;
@@ -5,9 +7,17 @@ class Location {
   Location(this.row, this.column);
 }
 
+class GeneratedPuzzle {
+  final PuzzleGrid starting;
+  final PuzzleGrid current;
+  final PuzzleGrid solution;
+
+  GeneratedPuzzle(this.starting, this.current, this.solution);
+}
+
 class Shared {
-  static populatePuzzle(String rawPuzzle) {
-    List<List<int>> puzzle = [];
+  static PuzzleGrid populatePuzzle(String rawPuzzle) {
+    PuzzleGrid puzzle = [];
 
     for (int r = 0; r < 9; r++) {
       List<int> row = [];
@@ -22,7 +32,7 @@ class Shared {
     return puzzle;
   }
 
-  static puzzleToString(List<List<int>> puzzle) {
+  static String puzzleToString(PuzzleGrid puzzle) {
     String rawPuzzle = "";
 
     for (int r = 0; r < 9; r++) {
@@ -34,7 +44,23 @@ class Shared {
     return rawPuzzle;
   }
 
-  static doesRowHaveNumber(List<List<int>> puzzle, int row, int number) {
+  static PuzzleGrid copyPuzzle(PuzzleGrid puzzle) {
+    PuzzleGrid copy = [];
+
+    for (int r = 0; r < 9; r++) {
+      List<int> row = [];
+
+      for (int c = 0; c < 9; c++) {
+        row.add(puzzle[r][c]);
+      }
+
+      copy.add(row);
+    }
+
+    return copy;
+  }
+
+  static bool doesRowHaveNumber(PuzzleGrid puzzle, int row, int number) {
     for (int i = 0; i < 9; i++) {
       if (puzzle[row][i] == number) {
         return true;
@@ -44,7 +70,7 @@ class Shared {
     return false;
   }
 
-  static doesColumnHaveNumber(List<List<int>> puzzle, int column, int number) {
+  static bool doesColumnHaveNumber(PuzzleGrid puzzle, int column, int number) {
     for (int i = 0; i < 9; i++) {
       if (puzzle[i][column] == number) {
         return true;
@@ -54,7 +80,8 @@ class Shared {
     return false;
   }
 
-  static doesBoxHaveNumber(List<List<int>> puzzle, int row, int column, int number) {
+  static bool doesBoxHaveNumber(
+      PuzzleGrid puzzle, int row, int column, int number) {
     int r = row - row % 3;
     int c = column - column % 3;
 
@@ -69,14 +96,14 @@ class Shared {
     return false;
   }
 
-  static isValidPlacement(List<List<int>> puzzle, int row, int column, int number) {
-    return
-      !doesRowHaveNumber(puzzle, row, number) &&
-      !doesColumnHaveNumber(puzzle, column, number) &&
-      !doesBoxHaveNumber(puzzle, row, column, number);
+  static bool isValidPlacement(
+      PuzzleGrid puzzle, int row, int column, int number) {
+    return !doesRowHaveNumber(puzzle, row, number) &&
+        !doesColumnHaveNumber(puzzle, column, number) &&
+        !doesBoxHaveNumber(puzzle, row, column, number);
   }
 
-  static findEmptyCell(List<List<int>> puzzle) {
+  static Location? findEmptyCell(PuzzleGrid puzzle) {
     for (int r = 0; r < 9; r++) {
       for (int c = 0; c < 9; c++) {
         if (puzzle[r][c] == 0) {
@@ -88,7 +115,23 @@ class Shared {
     return null;
   }
 
-  static isSolved(List<List<int>> puzzle) {
+  static bool isSolved(PuzzleGrid puzzle) {
     return findEmptyCell(puzzle) == null;
+  }
+
+  static PuzzleGrid createEmptyPuzzle() {
+    PuzzleGrid puzzle = [];
+
+    for (int r = 0; r < 9; r++) {
+      List<int> row = [];
+
+      for (int c = 0; c < 9; c++) {
+        row.add(0);
+      }
+
+      puzzle.add(row);
+    }
+
+    return puzzle;
   }
 }

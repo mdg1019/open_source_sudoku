@@ -4,7 +4,7 @@ import 'package:sudoku/shared.dart';
 void main() {
   test('test Shared.populatePuzzle()', () {
     String puzzle = "004300209005009001070060043006002087190007400050083000600000105003508690042910300";
-    List<List<int>> expected = [
+    PuzzleGrid expected = [
       [0, 0, 4, 3, 0, 0, 2, 0, 9],
       [0, 0, 5, 0, 0, 9, 0, 0, 1],
       [0, 7, 0, 0, 6, 0, 0, 4, 3],
@@ -26,7 +26,7 @@ void main() {
   });
 
   test('test Shared.puzzleToString()', () {
-    List<List<int>> puzzle = [
+    PuzzleGrid puzzle = [
       [0, 0, 4, 3, 0, 0, 2, 0, 9],
       [0, 0, 5, 0, 0, 9, 0, 0, 1],
       [0, 7, 0, 0, 6, 0, 0, 4, 3],
@@ -47,7 +47,7 @@ void main() {
   });
 
   test('test Shared.doesRowHaveNumber()', () {
-    List<List<int>> puzzle = [
+    PuzzleGrid puzzle = [
       [0, 0, 4, 3, 0, 0, 2, 0, 9],
       [0, 0, 5, 0, 0, 9, 0, 0, 1],
       [0, 7, 0, 0, 6, 0, 0, 4, 3],
@@ -73,7 +73,7 @@ void main() {
   });
 
   test('test Shared.doesColumnHaveNumber()', () {
-    List<List<int>> puzzle = [
+    PuzzleGrid puzzle = [
       [0, 0, 4, 3, 0, 0, 2, 0, 9],
       [0, 0, 5, 0, 0, 9, 0, 0, 1],
       [0, 7, 0, 0, 6, 0, 0, 4, 3],
@@ -105,7 +105,7 @@ void main() {
   });
 
   test('test Shared.doesBoxHaveNumber()', () {
-    List<List<int>> puzzle = [
+    PuzzleGrid puzzle = [
       [0, 0, 4, 3, 0, 0, 2, 0, 9],
       [0, 0, 5, 0, 0, 9, 0, 0, 1],
       [0, 7, 0, 0, 6, 0, 0, 4, 3],
@@ -139,7 +139,7 @@ void main() {
   });
 
   test('test Shared.isValidPlacement()', () {
-    List<List<int>> puzzle = [
+    PuzzleGrid puzzle = [
       [0, 0, 4, 3, 0, 0, 2, 0, 9],
       [0, 0, 5, 0, 0, 9, 0, 0, 1],
       [0, 7, 0, 0, 6, 0, 0, 4, 3],
@@ -156,7 +156,7 @@ void main() {
   });
 
   test('test Shared.findEmptyCell()', () {
-    List<List<int>> puzzle = [
+    PuzzleGrid puzzle = [
       [8, 0, 4, 3, 0, 0, 2, 0, 9],
       [0, 0, 5, 0, 0, 9, 0, 0, 1],
       [0, 7, 0, 0, 6, 0, 0, 4, 3],
@@ -168,13 +168,13 @@ void main() {
       [0, 4, 2, 9, 1, 0, 3, 0, 0],
     ];
 
-    Location emptyCell = Shared.findEmptyCell(puzzle);
+    Location emptyCell = Shared.findEmptyCell(puzzle)!;
 
     expect(emptyCell.row == 0 && emptyCell.column == 1, true);
   });
 
   test('test Shared.isSolved() when false', () {
-    List<List<int>> puzzle = [
+    PuzzleGrid puzzle = [
       [8, 0, 4, 3, 0, 0, 2, 0, 9],
       [0, 0, 5, 0, 0, 9, 0, 0, 1],
       [0, 7, 0, 0, 6, 0, 0, 4, 3],
@@ -190,7 +190,7 @@ void main() {
   });
 
   test('test Shared.isSolved() when true', () {
-    List<List<int>> puzzle = [
+    PuzzleGrid puzzle = [
       [8, 6, 4, 3, 7, 1, 2, 5, 9],
       [3, 2, 5, 8, 4, 9, 7, 6, 1],
       [9, 7, 1, 2, 6, 5, 8, 4, 3],
@@ -203,5 +203,27 @@ void main() {
     ];
 
     expect(Shared.isSolved(puzzle), true);
+  });
+
+  test('test Shared.copyPuzzle() when true', () {
+    PuzzleGrid puzzle1 = [
+      [8, 6, 4, 3, 7, 1, 2, 5, 9],
+      [3, 2, 5, 8, 4, 9, 7, 6, 1],
+      [9, 7, 1, 2, 6, 5, 8, 4, 3],
+      [4, 3, 6, 1, 9, 2, 5, 8, 7],
+      [1, 9, 8, 6, 5, 7, 4, 3, 2],
+      [2, 5, 7, 4, 8, 3, 9, 1, 6],
+      [6, 8, 9, 7, 3, 4, 1, 2, 5],
+      [7, 1, 3, 5, 2, 8, 6, 9, 4],
+      [5, 4, 2, 9, 1, 6, 3, 7, 8],
+    ];
+
+    PuzzleGrid puzzle2 = Shared.copyPuzzle(puzzle1);
+
+    for (int r = 0; r < 9; r++) {
+      for (int c = 0; c < 9; c++) {
+        expect(puzzle1[r][c], puzzle2[r][c]);
+      }
+    }
   });
 }

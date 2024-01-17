@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:sudoku/shared.dart';
+import 'package:sudoku/generator.dart';
+
 void main() {
+  GeneratedPuzzle puzzle = Generator.generatePuzzle(30);
+
   runApp(ProviderScope(child: const MyApp()));
 }
 
