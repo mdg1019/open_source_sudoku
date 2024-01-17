@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sudoku/shared.dart';
-import 'package:sudoku/solver.dart';
+
+import 'package:sudoku/utils/shared.dart';
+import 'package:sudoku/utils/solver.dart';
 
 void main() {
   test('test Solver.solvePuzzle() when puzzle can be solved', () {

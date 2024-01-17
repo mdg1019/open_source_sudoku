@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:sudoku/shared.dart';
-import 'package:sudoku/solver.dart';
+import 'package:sudoku/utils/shared.dart';
+import 'package:sudoku/utils/solver.dart';
 
 class Generator {
   static void fillDiagonalBoxes(PuzzleGrid puzzle) {

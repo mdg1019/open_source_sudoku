@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:sudoku/generator.dart';
-import 'package:sudoku/shared.dart';
+import 'package:sudoku/utils/generator.dart';
+import 'package:sudoku/utils/shared.dart';
 
 void main() {
   test('test Generator.fillBox()', () {

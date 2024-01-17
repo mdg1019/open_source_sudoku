@@ -1,4 +1,4 @@
-import 'package:sudoku/shared.dart';
+import 'package:sudoku/utils/shared.dart';
 
 class Solver {
   static solvePuzzle(PuzzleGrid puzzle) {
