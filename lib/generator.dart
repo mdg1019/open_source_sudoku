@@ -4,22 +4,14 @@ import 'package:sudoku/shared.dart';
 import 'package:sudoku/solver.dart';
 
 class Generator {
-  static GeneratedPuzzle generatePuzzle(int givens) {
-    while (true) {
-      PuzzleGrid puzzle = Shared.createEmptyPuzzle();
-
-      Generator.fillDiagonalBoxes(puzzle);
-
-      if (Solver.solvePuzzle(puzzle)) {
-
-        return Generator.removeDigits(puzzle, givens);
-      }
+  static void fillDiagonalBoxes(PuzzleGrid puzzle) {
+    for (int i = 0; i < 9; i += 3) {
+      fillBox(puzzle, i, i);
     }
   }
 
   static void fillBox(PuzzleGrid puzzle, int row, int column) {
     List<int> numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
     numbers.shuffle();
 
     for (int r = row; r < row + 3; r++) {
@@ -29,14 +21,16 @@ class Generator {
     }
   }
 
-  static void fillDiagonalBoxes(PuzzleGrid puzzle) {
-    for (int i = 0; i < 9; i += 3) {
-      fillBox(puzzle, i, i);
-    }
-  }
+  static GeneratedPuzzle generatePuzzle(int givens) {
+    while (true) {
+      PuzzleGrid puzzle = Shared.createEmptyPuzzle();
 
-  static void fillRemaining(PuzzleGrid puzzle) {
-    Solver.solvePuzzle(puzzle);
+      Generator.fillDiagonalBoxes(puzzle);
+
+      if (Solver.solvePuzzle(puzzle)) {
+        return Generator.removeDigits(puzzle, givens);
+      }
+    }
   }
 
   static GeneratedPuzzle removeDigits(PuzzleGrid puzzle, int givens) {

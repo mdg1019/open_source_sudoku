@@ -1,9 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:sudoku/shared.dart';
 import 'package:sudoku/solver.dart';
 
 void main() {
   test('test Solver.solvePuzzle() when puzzle can be solved', () {
-    List<List<int>> puzzle = [
+    PuzzleGrid puzzle = [
       [0, 0, 4, 3, 0, 0, 2, 0, 9],
       [0, 0, 5, 0, 0, 9, 0, 0, 1],
       [0, 7, 0, 0, 6, 0, 0, 4, 3],
@@ -17,7 +18,7 @@ void main() {
 
     expect(Solver.solvePuzzle(puzzle), true);
 
-    List<List<int>> expected = [
+    PuzzleGrid expected = [
       [8, 6, 4, 3, 7, 1, 2, 5, 9],
       [3, 2, 5, 8, 4, 9, 7, 6, 1],
       [9, 7, 1, 2, 6, 5, 8, 4, 3],
@@ -37,7 +38,7 @@ void main() {
   });
 
   test('test Solver.solvePuzzle() when puzzle cannot be solved', () {
-    List<List<int>> puzzle = [
+    PuzzleGrid puzzle = [
       [2, 0, 0, 9, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 6, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 6, 0],
