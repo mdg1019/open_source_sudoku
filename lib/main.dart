@@ -4,9 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sudoku/screens/home_screen.dart';
 import 'package:sudoku/themes/dark_theme.dart';
 import 'package:sudoku/themes/light_theme.dart';
-import 'package:sudoku/utils/settings.dart';
+import 'package:sudoku/providers/settings_notifier.dart';
 import 'package:sudoku/utils/shared.dart';
 import 'package:sudoku/utils/generator.dart';
+
+import 'models/settings.dart';
 
 void main()  {
   GeneratedPuzzle puzzle = Generator.generatePuzzle(30);
