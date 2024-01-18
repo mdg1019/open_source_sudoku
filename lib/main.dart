@@ -8,11 +8,7 @@ import 'package:sudoku/utils/settings.dart';
 import 'package:sudoku/utils/shared.dart';
 import 'package:sudoku/utils/generator.dart';
 
-Settings? settings;
-
-void main() async {
-  settings = await Settings.instance;
-
+void main()  {
   GeneratedPuzzle puzzle = Generator.generatePuzzle(30);
 
   runApp(ProviderScope(child: const MyApp()));
@@ -23,11 +19,11 @@ class MyApp extends StatelessWidget {
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
     const String title = 'Sudoku';
 
     return MaterialApp(
-      theme: (settings!.theme == SudokuTheme.light) ? LightTheme.theme: DarkTheme.theme,
+      theme: (Settings.instance.get().theme == SudokuTheme.light) ? LightTheme.theme: DarkTheme.theme,
       initialRoute: '/',
       routes: {
         '/': (context) => const HomeScreen(title),
