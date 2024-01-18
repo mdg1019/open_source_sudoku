@@ -1,5 +1,7 @@
 typedef PuzzleGrid = List<List<int>>;
 
+enum SudokuTheme { light, dark }
+
 class Location {
   final int row;
   final int column;
