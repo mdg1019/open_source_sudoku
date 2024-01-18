@@ -14,16 +14,17 @@ void main()  {
   runApp(ProviderScope(child: const MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context)  {
+  Widget build(BuildContext context, WidgetRef ref)  {
     const String title = 'Sudoku';
+    final settings = ref.watch(SettingsNotifier.provider);
 
     return MaterialApp(
-      theme: (Settings.instance.get().theme == SudokuTheme.light) ? LightTheme.theme: DarkTheme.theme,
+      theme: (settings.theme == SudokuTheme.light) ? LightTheme.theme: DarkTheme.theme,
       initialRoute: '/',
       routes: {
         '/': (context) => const HomeScreen(title),
