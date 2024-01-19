@@ -4,15 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sudoku/screens/home_screen.dart';
 import 'package:sudoku/themes/dark_theme.dart';
 import 'package:sudoku/themes/light_theme.dart';
-import 'package:sudoku/providers/settings_notifier.dart';
 import 'package:sudoku/utils/shared.dart';
 import 'package:sudoku/utils/generator.dart';
 
 import 'models/settings.dart';
 
-void main()  {
-  GeneratedPuzzle puzzle = Generator.generatePuzzle(30);
-
+void main() {
   runApp(ProviderScope(child: const MyApp()));
 }
 
@@ -21,16 +18,24 @@ class MyApp extends ConsumerWidget {
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context, WidgetRef ref)  {
+  Widget build(BuildContext context, WidgetRef ref) {
     const String title = 'Sudoku';
-    final settings = ref.watch(SettingsNotifier.provider);
+    final settings = ref.watch(settingsNotifierProvider);
 
-    return MaterialApp(
-      theme: (settings.theme == SudokuTheme.light) ? LightTheme.theme: DarkTheme.theme,
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const HomeScreen(title),
+    return settings.when(
+      data: (settings) {
+        return MaterialApp(
+          theme: (settings.theme == SudokuTheme.light)
+              ? LightTheme.theme
+              : DarkTheme.theme,
+          initialRoute: '/',
+          routes: {
+            '/': (context) => const HomeScreen(title),
+          },
+        );
       },
+      loading: () => const CircularProgressIndicator(),
+      error: (error, stackTrace) => const Text('Error'),
     );
   }
 }

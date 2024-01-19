@@ -70,8 +70,8 @@ void main() {
     expect(numberOfGivens, 30);
   });
 
-  test('test Generator.generatePuzzle()', () {
-    GeneratedPuzzle generatedPuzzle = Generator.generatePuzzle(30);
+  test('test Generator.generatePuzzle()', () async {
+    GeneratedPuzzle generatedPuzzle = await Generator.generatePuzzle(30);
 
     for (int r = 0; r < 9; r++) {
       for (int c = 0; c < 9; c++) {

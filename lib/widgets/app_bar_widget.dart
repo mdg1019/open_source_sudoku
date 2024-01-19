@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../providers/settings_notifier.dart';
+import '../models/settings.dart';
 
 class AppBarWidget extends ConsumerWidget implements PreferredSizeWidget {
   const AppBarWidget({
@@ -23,7 +23,7 @@ class AppBarWidget extends ConsumerWidget implements PreferredSizeWidget {
         IconButton(
           icon: const Icon(Icons.settings),
           onPressed: () {
-            ref.read(SettingsNotifier.provider.notifier).toggleTheme();
+            ref.read(settingsNotifierProvider.notifier).toggleTheme();
           },
         ),
       ],

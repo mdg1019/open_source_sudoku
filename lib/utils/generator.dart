@@ -21,13 +21,13 @@ class Generator {
     }
   }
 
-  static GeneratedPuzzle generatePuzzle(int givens) {
+  static Future<GeneratedPuzzle> generatePuzzle(int givens) async {
     while (true) {
       PuzzleGrid puzzle = Shared.createEmptyPuzzle();
 
       Generator.fillDiagonalBoxes(puzzle);
 
-      if (Solver.solvePuzzle(puzzle)) {
+      if (await Solver.solvePuzzle(puzzle)) {
         return Generator.removeDigits(puzzle, givens);
       }
     }
