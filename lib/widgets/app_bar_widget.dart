@@ -20,6 +20,7 @@ class AppBarWidget extends ConsumerWidget implements PreferredSizeWidget {
       centerTitle: true,
       title: Text(
         title,
+        style: Shared.getTheme(settings.themeType).appBarThemeTextStyle,
       ),
       actions: [
         IconButton(

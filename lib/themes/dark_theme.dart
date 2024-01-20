@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../interfaces/sudoku_theme.dart';
 
-class DarkTheme implements SudokuTheme {
+class DarkTheme implements SudokuTheme  {
   static final DarkTheme _instance = DarkTheme._internal();
 
   factory DarkTheme() {
@@ -23,6 +23,14 @@ class DarkTheme implements SudokuTheme {
   TextStyle currentValueTextStyle = const TextStyle(
     color: Colors.white,
     fontSize: 20.0,
+  );
+
+  @override
+  TextStyle appBarThemeTextStyle = const TextStyle(
+    color: Colors.white,
+    fontSize: 24,
+    fontWeight: FontWeight.w500,
+    fontFamily: 'Lato',
   );
 
   @override

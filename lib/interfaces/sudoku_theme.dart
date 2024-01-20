@@ -5,6 +5,7 @@ abstract class SudokuTheme {
   Color gridInnerBorderColor;
   IconData appBarThemeIcon;
   TextStyle currentValueTextStyle;
+  TextStyle appBarThemeTextStyle;
   ThemeData theme;
 
   SudokuTheme ({
@@ -12,6 +13,7 @@ abstract class SudokuTheme {
     required this.gridInnerBorderColor,
     required this.appBarThemeIcon,
     required this.currentValueTextStyle,
+    required this.appBarThemeTextStyle,
     required this.theme,
   });
 }

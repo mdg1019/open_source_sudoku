@@ -26,6 +26,14 @@ class LightTheme implements SudokuTheme {
   );
 
   @override
+  TextStyle appBarThemeTextStyle = const TextStyle(
+    color: Colors.black,
+    fontSize: 24,
+    fontWeight: FontWeight.w500,
+    fontFamily: 'Lato',
+  );
+
+  @override
   ThemeData theme = ThemeData(
     appBarTheme:  const AppBarTheme(
       backgroundColor: Colors.white,
