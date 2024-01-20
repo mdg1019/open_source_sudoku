@@ -20,6 +20,12 @@ class DarkTheme implements SudokuTheme {
   IconData appBarThemeIcon = Icons.light_mode;
 
   @override
+  TextStyle currentValueTextStyle = const TextStyle(
+    color: Colors.white,
+    fontSize: 20.0,
+  );
+
+  @override
   ThemeData theme = ThemeData(
     appBarTheme:  const AppBarTheme(
       backgroundColor: Colors.black,

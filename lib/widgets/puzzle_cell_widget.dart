@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
 
+import '../interfaces/sudoku_theme.dart';
 import '../models/settings.dart';
 import '../models/sudoku.dart';
+import '../utils/shared.dart';
 
 class PuzzleCellWidget extends StatelessWidget {
-  const PuzzleCellWidget({
+  PuzzleCellWidget({
     super.key,
     required this.sudoku,
     required this.settings,
     required this.row,
     required this.col,
-  });
+  }) {
+    puzzleCell = sudoku.grid![row][col];
+    theme = Shared.getTheme(settings.themeType);
+  }
 
   final Sudoku sudoku;
   final Settings settings;
   final int row;
   final int col;
+  PuzzleCell? puzzleCell;
+  SudokuTheme? theme;
 
   @override
   Widget build(BuildContext context) {
@@ -23,15 +30,28 @@ class PuzzleCellWidget extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border(
           top: BorderSide(
-            color: settings.themeType == SudokuThemeType.light ? Colors.black : Colors.white,
-            width: 0.5,
-          )
+            color: row % 3 == 0 ? theme!.gridBoxBorderColor : theme!.gridInnerBorderColor,
+            width: 1.0,
+          ),
+          right: BorderSide(
+            color: theme!.gridBoxBorderColor,
+            width: col == 8 ? 1.0 : 0.0
+          ),
+          left: BorderSide(
+            color: col % 3 == 0 ? theme!.gridBoxBorderColor : theme!.gridInnerBorderColor,
+            width: 1.0,
+          ),
+          bottom: BorderSide(
+            color: theme!.gridBoxBorderColor,
+            width: row == 8 ? 1.0 : 0.0,
+          ),
         ),
       ),
       child: Center(
-        child: Text(sudoku.grid![row][col].value == 0
+        child: Text(puzzleCell!.value == 0
             ? ''
-            : sudoku.grid![row][col].value.toString(),
+            : puzzleCell!.value.toString(),
+          style: theme!.currentValueTextStyle,
         ),
       ),
     );

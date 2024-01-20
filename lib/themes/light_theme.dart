@@ -11,13 +11,19 @@ class LightTheme implements SudokuTheme {
   LightTheme._internal();
 
   @override
-  Color gridBoxBorderColor = Colors.grey[850]!;
+  Color gridBoxBorderColor = Colors.grey[900]!;
 
   @override
-  Color gridInnerBorderColor = Colors.grey[200]!;
+  Color gridInnerBorderColor = Colors.grey[400]!;
 
   @override
   IconData appBarThemeIcon = Icons.dark_mode;
+
+  @override
+  TextStyle currentValueTextStyle = const TextStyle(
+    color: Colors.black,
+    fontSize: 20.0,
+  );
 
   @override
   ThemeData theme = ThemeData(
