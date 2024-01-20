@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../interfaces/sudoku_theme.dart';
 import '../models/settings.dart';
 import '../models/sudoku.dart';
 import '../utils/shared.dart';
 
-class PuzzleCellWidget extends StatelessWidget {
+class PuzzleCellWidget extends ConsumerWidget {
   PuzzleCellWidget({
     super.key,
     required this.sudoku,
@@ -13,7 +14,7 @@ class PuzzleCellWidget extends StatelessWidget {
     required this.row,
     required this.col,
   }) {
-    puzzleCell = sudoku.grid![row][col];
+    puzzleCell = sudoku.puzzleGrid![row][col];
     theme = Shared.getTheme(settings.themeType);
   }
 
@@ -25,32 +26,46 @@ class PuzzleCellWidget extends StatelessWidget {
   SudokuTheme? theme;
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border(
-          top: row != 0
-              ? BorderSide(
-                  color: row % 3 == 0
-                      ? theme!.gridBoxBorderColor
-                      : theme!.gridInnerBorderColor,
-                  width: 1.0,
-                )
-              : BorderSide.none,
-          left: col != 0
-              ? BorderSide(
-                  color: col % 3 == 0
-                      ? theme!.gridBoxBorderColor
-                      : theme!.gridInnerBorderColor,
-                  width: 1.0,
-                )
-              : BorderSide.none,
+  Widget build(BuildContext context, WidgetRef ref) {
+    return InkWell(
+      onTap: () {
+        ref.read(sudokuNotifierProvider.notifier).setCursorLocation(row, col);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: sudoku.cursor!.row == row && sudoku.cursor!.col == col
+              ? theme!.cursorLocationBackgroundColor
+              : theme!.backgroundColor,
+          border: Border(
+            top: row != 0
+                ? BorderSide(
+                    color: row % 3 == 0
+                        ? theme!.gridBoxBorderColor
+                        : theme!.gridInnerBorderColor,
+                    width: 1.0,
+                  )
+                : BorderSide.none,
+            left: col != 0
+                ? BorderSide(
+                    color: col % 3 == 0
+                        ? theme!.gridBoxBorderColor
+                        : theme!.gridInnerBorderColor,
+                    width: 1.0,
+                  )
+                : BorderSide.none,
+          ),
+          borderRadius: BorderRadius.only(
+            topLeft: row == 0 && col == 0 ? const Radius.circular(5.0) : Radius.zero,
+            topRight: row == 0 && col == 8 ? const Radius.circular(5.0) : Radius.zero,
+            bottomRight: row == 8 && col == 8 ? const Radius.circular(5.0) : Radius.zero,
+            bottomLeft: row == 8 && col == 0 ? const Radius.circular(5.0) : Radius.zero,
+          ),
         ),
-      ),
-      child: Center(
-        child: Text(
-          puzzleCell!.value == 0 ? '' : puzzleCell!.value.toString(),
-          style: theme!.currentValueTextStyle,
+        child: Center(
+          child: Text(
+            puzzleCell!.current == 0 ? '' : puzzleCell!.current.toString(),
+            style: theme!.currentValueTextStyle,
+          ),
         ),
       ),
     );

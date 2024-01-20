@@ -9,14 +9,14 @@ class Solver {
     Location? emptyCell = Shared.findEmptyCell(puzzle)!;
 
     for (int number = 1; number <= 9; number++) {
-      if (Shared.isValidPlacement(puzzle, emptyCell.row, emptyCell.column, number)) {
-        puzzle[emptyCell.row][emptyCell.column] = number;
+      if (Shared.isValidPlacement(puzzle, emptyCell.row, emptyCell.col, number)) {
+        puzzle[emptyCell.row][emptyCell.col] = number;
 
         if (await solvePuzzle(puzzle)) {
           return true;
         }
 
-        puzzle[emptyCell.row][emptyCell.column] = 0;
+        puzzle[emptyCell.row][emptyCell.col] = 0;
       }
     }
 

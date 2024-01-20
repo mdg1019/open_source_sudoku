@@ -8,16 +8,17 @@ typedef Puzzle = List<List<int>>;
 
 class Location {
   final int row;
-  final int column;
+  final int col;
 
-  Location(this.row, this.column);
+  Location(this.row, this.col);
 }
 
 class GeneratedPuzzle {
   final Puzzle starting;
+  final Puzzle current;
   final Puzzle solution;
 
-  GeneratedPuzzle(this.starting, this.solution);
+  GeneratedPuzzle(this.starting, this.current, this.solution);
 }
 
 class Shared {

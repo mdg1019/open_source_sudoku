@@ -170,7 +170,7 @@ void main() {
 
     Location emptyCell = Shared.findEmptyCell(puzzle)!;
 
-    expect(emptyCell.row == 0 && emptyCell.column == 1, true);
+    expect(emptyCell.row == 0 && emptyCell.col == 1, true);
   });
 
   test('test Shared.isSolved() when false', () {

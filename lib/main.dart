@@ -15,7 +15,7 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    const String title = 'Open Source Sudoku';
+    const String title = 'OS Sudoku';
     final settings = ref.watch(settingsNotifierProvider);
 
     return settings.when(

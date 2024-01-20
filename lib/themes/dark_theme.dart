@@ -30,7 +30,6 @@ class DarkTheme implements SudokuTheme  {
     color: Colors.white,
     fontSize: 24,
     fontWeight: FontWeight.w500,
-    fontFamily: 'Lato',
   );
 
   @override
@@ -52,4 +51,10 @@ class DarkTheme implements SudokuTheme  {
     visualDensity: VisualDensity.adaptivePlatformDensity,
     colorScheme: const ColorScheme.dark(background: Colors.black),
   );
+
+  @override
+  Color cursorLocationBackgroundColor = Colors.grey[700]!;
+
+  @override
+  Color backgroundColor = Colors.black;
 }

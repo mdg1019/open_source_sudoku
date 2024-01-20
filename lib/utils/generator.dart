@@ -49,6 +49,6 @@ class Generator {
       }
     }
 
-    return GeneratedPuzzle(puzzle, solution);
+    return GeneratedPuzzle(puzzle, puzzle, solution);
   }
 }

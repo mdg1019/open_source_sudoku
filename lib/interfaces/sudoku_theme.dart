@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 abstract class SudokuTheme {
+  Color backgroundColor;
+  Color cursorLocationBackgroundColor;
   Color gridBoxBorderColor;
   Color gridInnerBorderColor;
   IconData appBarThemeIcon;
-  TextStyle currentValueTextStyle;
   TextStyle appBarThemeTextStyle;
+  TextStyle currentValueTextStyle;
   ThemeData theme;
 
   SudokuTheme ({
@@ -15,5 +17,7 @@ abstract class SudokuTheme {
     required this.currentValueTextStyle,
     required this.appBarThemeTextStyle,
     required this.theme,
+    required this.cursorLocationBackgroundColor,
+    required this.backgroundColor,
   });
 }

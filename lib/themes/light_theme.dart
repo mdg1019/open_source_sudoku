@@ -30,7 +30,6 @@ class LightTheme implements SudokuTheme {
     color: Colors.black,
     fontSize: 24,
     fontWeight: FontWeight.w500,
-    fontFamily: 'Lato',
   );
 
   @override
@@ -52,4 +51,10 @@ class LightTheme implements SudokuTheme {
     visualDensity: VisualDensity.adaptivePlatformDensity,
     colorScheme: const ColorScheme.light(background: Colors.white),
   );
+
+  @override
+  Color cursorLocationBackgroundColor = Colors.grey[200]!;
+
+  @override
+  Color backgroundColor = Colors.white;
 }
