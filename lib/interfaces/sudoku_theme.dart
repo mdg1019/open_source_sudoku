@@ -5,6 +5,7 @@ abstract class SudokuTheme {
   Color cursorLocationBackgroundColor;
   Color gridBoxBorderColor;
   Color gridInnerBorderColor;
+  Color highlightBackgroundColor;
   IconData appBarThemeIcon;
   TextStyle appBarThemeTextStyle;
   TextStyle currentValueTextStyle;
@@ -19,5 +20,6 @@ abstract class SudokuTheme {
     required this.theme,
     required this.cursorLocationBackgroundColor,
     required this.backgroundColor,
+    required this.highlightBackgroundColor
   });
 }

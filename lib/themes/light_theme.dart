@@ -53,8 +53,11 @@ class LightTheme implements SudokuTheme {
   );
 
   @override
-  Color cursorLocationBackgroundColor = Colors.grey[200]!;
+  Color cursorLocationBackgroundColor = Colors.grey[300]!;
 
   @override
   Color backgroundColor = Colors.white;
+
+  @override
+  Color highlightBackgroundColor = Colors.grey[100]!;
 }

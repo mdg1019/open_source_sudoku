@@ -57,4 +57,7 @@ class DarkTheme implements SudokuTheme  {
 
   @override
   Color backgroundColor = Colors.black;
+
+  @override
+  Color highlightBackgroundColor = Colors.grey[600]!;
 }

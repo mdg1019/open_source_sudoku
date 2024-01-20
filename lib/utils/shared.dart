@@ -101,6 +101,10 @@ class Shared {
 
     return null;
   }
+  
+  static int getBoxNumber(int row, int col) {
+    return (row ~/ 3) * 3 + (col ~/ 3);
+  }
 
   static SudokuTheme getTheme(SudokuThemeType themeType) {
     switch (themeType) {
@@ -109,6 +113,10 @@ class Shared {
       default:
         return DarkTheme();
     }
+  }
+  
+  static bool isInSameBox(Location location, int row, int col) {
+    return getBoxNumber(location.row, location.col) == getBoxNumber(row, col);
   }
 
   static bool isSolved(Puzzle puzzle) {

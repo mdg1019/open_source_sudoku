@@ -33,9 +33,7 @@ class PuzzleCellWidget extends ConsumerWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: sudoku.cursor!.row == row && sudoku.cursor!.col == col
-              ? theme!.cursorLocationBackgroundColor
-              : theme!.backgroundColor,
+          color: getBackgroundColor(),
           border: Border(
             top: row != 0
                 ? BorderSide(
@@ -69,5 +67,19 @@ class PuzzleCellWidget extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  Color getBackgroundColor() {
+    if (sudoku.cursor!.row == row && sudoku.cursor!.col == col) {
+      return theme!.cursorLocationBackgroundColor;
+    }
+
+    if (sudoku.cursor!.row == row || sudoku.cursor!.col == col || Shared.isInSameBox(sudoku.cursor!, row, col)) {
+      return theme!.highlightBackgroundColor;
+    }
+
+
+
+    return theme!.backgroundColor;
   }
 }
