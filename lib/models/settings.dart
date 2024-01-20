@@ -3,12 +3,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 part 'settings.g.dart';
 
-enum SudokuTheme { light, dark }
+enum SudokuThemeType { light, dark }
 
 class Settings {
-  final SudokuTheme theme;
+  final SudokuThemeType themeType;
 
-  Settings({required this.theme});
+  Settings({required this.themeType});
 }
 
 @riverpod
@@ -18,16 +18,16 @@ class SettingsNotifier extends _$SettingsNotifier {
   @override
   FutureOr<Settings> build() async {
     sharedPreferences = await SharedPreferences.getInstance();
-    final theme = SudokuTheme.values[sharedPreferences!.getInt('theme') ??
-              SudokuTheme.light.index];
-    return Settings(theme: theme);
+    final themeType = SudokuThemeType.values[sharedPreferences!.getInt('theme') ??
+              SudokuThemeType.light.index];
+    return Settings(themeType: themeType);
   }
 
   void toggleTheme() {
-    final theme = (state.value?.theme == SudokuTheme.light)
-        ? SudokuTheme.dark
-        : SudokuTheme.light;
-    sharedPreferences!.setInt('theme', theme.index);
-    state = AsyncValue.data(Settings(theme: theme));
+    final themeType = (state.value?.themeType == SudokuThemeType.light)
+        ? SudokuThemeType.dark
+        : SudokuThemeType.light;
+    sharedPreferences!.setInt('themeType', themeType.index);
+    state = AsyncValue.data(Settings(themeType: themeType));
   }
 }

@@ -1,3 +1,9 @@
+import 'package:sudoku/models/settings.dart';
+
+import '../interfaces/sudoku_theme.dart';
+import '../themes/dark_theme.dart';
+import '../themes/light_theme.dart';
+
 typedef Puzzle = List<List<int>>;
 
 class Location {
@@ -83,17 +89,6 @@ class Shared {
     return false;
   }
 
-  static bool isSolved(Puzzle puzzle) {
-    return findEmptyCell(puzzle) == null;
-  }
-
-  static bool isValidPlacement(
-      Puzzle puzzle, int row, int column, int number) {
-    return !doesRowHaveNumber(puzzle, row, number) &&
-        !doesColumnHaveNumber(puzzle, column, number) &&
-        !doesBoxHaveNumber(puzzle, row, column, number);
-  }
-
   static Location? findEmptyCell(Puzzle puzzle) {
     for (int r = 0; r < 9; r++) {
       for (int c = 0; c < 9; c++) {
@@ -104,6 +99,26 @@ class Shared {
     }
 
     return null;
+  }
+
+  static SudokuTheme getTheme(SudokuThemeType themeType) {
+    switch (themeType) {
+      case SudokuThemeType.light:
+        return LightTheme();
+      default:
+        return DarkTheme();
+    }
+  }
+
+  static bool isSolved(Puzzle puzzle) {
+    return findEmptyCell(puzzle) == null;
+  }
+
+  static bool isValidPlacement(
+      Puzzle puzzle, int row, int column, int number) {
+    return !doesRowHaveNumber(puzzle, row, number) &&
+        !doesColumnHaveNumber(puzzle, column, number) &&
+        !doesBoxHaveNumber(puzzle, row, column, number);
   }
 
   static Puzzle populatePuzzle(String rawPuzzle) {

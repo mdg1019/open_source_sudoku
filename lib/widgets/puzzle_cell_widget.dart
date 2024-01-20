@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 import '../models/settings.dart';
@@ -23,9 +21,11 @@ class PuzzleCellWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(
-          color: settings.theme == SudokuTheme.light ? Colors.black : Colors.white,
-          width: 0.5,
+        border: Border(
+          top: BorderSide(
+            color: settings.themeType == SudokuThemeType.light ? Colors.black : Colors.white,
+            width: 0.5,
+          )
         ),
       ),
       child: Center(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/settings.dart';
+import '../utils/shared.dart';
 
 class AppBarWidget extends ConsumerWidget implements PreferredSizeWidget {
   const AppBarWidget({
@@ -13,7 +14,7 @@ class AppBarWidget extends ConsumerWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final settings = ref.watch(settingsNotifierProvider);
+    final settings = ref.watch(settingsNotifierProvider).value!;
 
     return AppBar(
       title: Center(
@@ -23,9 +24,7 @@ class AppBarWidget extends ConsumerWidget implements PreferredSizeWidget {
       ),
       actions: [
         IconButton(
-          icon: Icon(settings.value!.theme == SudokuTheme.light
-              ? Icons.dark_mode
-              : Icons.light_mode),
+          icon: Icon(Shared.getTheme(settings.themeType).appBarThemeIcon),
           onPressed: () {
             ref.read(settingsNotifierProvider.notifier).toggleTheme();
           },

@@ -24,9 +24,7 @@ class MyApp extends ConsumerWidget {
     return settings.when(
       data: (settings) {
         return MaterialApp(
-          theme: (settings.theme == SudokuTheme.light)
-              ? LightTheme.theme
-              : DarkTheme.theme,
+          theme: Shared.getTheme(settings.themeType).theme,
           initialRoute: '/',
           routes: {
             '/': (context) => const SudokuScreen(title),
