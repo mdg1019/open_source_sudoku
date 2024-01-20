@@ -13,6 +13,8 @@ class AppBarWidget extends ConsumerWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final settings = ref.watch(settingsNotifierProvider);
+
     return AppBar(
       title: Center(
         child: Text(
@@ -21,7 +23,9 @@ class AppBarWidget extends ConsumerWidget implements PreferredSizeWidget {
       ),
       actions: [
         IconButton(
-          icon: const Icon(Icons.settings),
+          icon: Icon(settings.value!.theme == SudokuTheme.light
+              ? Icons.dark_mode
+              : Icons.light_mode),
           onPressed: () {
             ref.read(settingsNotifierProvider.notifier).toggleTheme();
           },

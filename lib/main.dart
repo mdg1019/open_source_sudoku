@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:sudoku/screens/home_screen.dart';
+import 'package:sudoku/screens/sudoku_screen.dart';
 import 'package:sudoku/themes/dark_theme.dart';
 import 'package:sudoku/themes/light_theme.dart';
 import 'package:sudoku/utils/shared.dart';
@@ -16,7 +16,6 @@ void main() {
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     const String title = 'Sudoku';
@@ -30,7 +29,7 @@ class MyApp extends ConsumerWidget {
               : DarkTheme.theme,
           initialRoute: '/',
           routes: {
-            '/': (context) => const HomeScreen(title),
+            '/': (context) => const SudokuScreen(title),
           },
         );
       },
