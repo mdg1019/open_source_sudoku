@@ -1,7 +1,7 @@
 import 'package:sudoku/utils/shared.dart';
 
 class Solver {
-  static solvePuzzle(PuzzleGrid puzzle) async {
+  static solvePuzzle(Puzzle puzzle) async {
     if (Shared.isSolved(puzzle)) {
       return true;
     }

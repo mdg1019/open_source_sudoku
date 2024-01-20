@@ -4,7 +4,7 @@ import 'package:sudoku/utils/shared.dart';
 void main() {
   test('test Shared.populatePuzzle()', () {
     String puzzle = "004300209005009001070060043006002087190007400050083000600000105003508690042910300";
-    PuzzleGrid expected = [
+    Puzzle expected = [
       [0, 0, 4, 3, 0, 0, 2, 0, 9],
       [0, 0, 5, 0, 0, 9, 0, 0, 1],
       [0, 7, 0, 0, 6, 0, 0, 4, 3],
@@ -26,7 +26,7 @@ void main() {
   });
 
   test('test Shared.puzzleToString()', () {
-    PuzzleGrid puzzle = [
+    Puzzle puzzle = [
       [0, 0, 4, 3, 0, 0, 2, 0, 9],
       [0, 0, 5, 0, 0, 9, 0, 0, 1],
       [0, 7, 0, 0, 6, 0, 0, 4, 3],
@@ -47,7 +47,7 @@ void main() {
   });
 
   test('test Shared.doesRowHaveNumber()', () {
-    PuzzleGrid puzzle = [
+    Puzzle puzzle = [
       [0, 0, 4, 3, 0, 0, 2, 0, 9],
       [0, 0, 5, 0, 0, 9, 0, 0, 1],
       [0, 7, 0, 0, 6, 0, 0, 4, 3],
@@ -73,7 +73,7 @@ void main() {
   });
 
   test('test Shared.doesColumnHaveNumber()', () {
-    PuzzleGrid puzzle = [
+    Puzzle puzzle = [
       [0, 0, 4, 3, 0, 0, 2, 0, 9],
       [0, 0, 5, 0, 0, 9, 0, 0, 1],
       [0, 7, 0, 0, 6, 0, 0, 4, 3],
@@ -105,7 +105,7 @@ void main() {
   });
 
   test('test Shared.doesBoxHaveNumber()', () {
-    PuzzleGrid puzzle = [
+    Puzzle puzzle = [
       [0, 0, 4, 3, 0, 0, 2, 0, 9],
       [0, 0, 5, 0, 0, 9, 0, 0, 1],
       [0, 7, 0, 0, 6, 0, 0, 4, 3],
@@ -139,7 +139,7 @@ void main() {
   });
 
   test('test Shared.isValidPlacement()', () {
-    PuzzleGrid puzzle = [
+    Puzzle puzzle = [
       [0, 0, 4, 3, 0, 0, 2, 0, 9],
       [0, 0, 5, 0, 0, 9, 0, 0, 1],
       [0, 7, 0, 0, 6, 0, 0, 4, 3],
@@ -156,7 +156,7 @@ void main() {
   });
 
   test('test Shared.findEmptyCell()', () {
-    PuzzleGrid puzzle = [
+    Puzzle puzzle = [
       [8, 0, 4, 3, 0, 0, 2, 0, 9],
       [0, 0, 5, 0, 0, 9, 0, 0, 1],
       [0, 7, 0, 0, 6, 0, 0, 4, 3],
@@ -174,7 +174,7 @@ void main() {
   });
 
   test('test Shared.isSolved() when false', () {
-    PuzzleGrid puzzle = [
+    Puzzle puzzle = [
       [8, 0, 4, 3, 0, 0, 2, 0, 9],
       [0, 0, 5, 0, 0, 9, 0, 0, 1],
       [0, 7, 0, 0, 6, 0, 0, 4, 3],
@@ -190,7 +190,7 @@ void main() {
   });
 
   test('test Shared.isSolved() when true', () {
-    PuzzleGrid puzzle = [
+    Puzzle puzzle = [
       [8, 6, 4, 3, 7, 1, 2, 5, 9],
       [3, 2, 5, 8, 4, 9, 7, 6, 1],
       [9, 7, 1, 2, 6, 5, 8, 4, 3],
@@ -206,7 +206,7 @@ void main() {
   });
 
   test('test Shared.copyPuzzle() when true', () {
-    PuzzleGrid puzzle1 = [
+    Puzzle puzzle1 = [
       [8, 6, 4, 3, 7, 1, 2, 5, 9],
       [3, 2, 5, 8, 4, 9, 7, 6, 1],
       [9, 7, 1, 2, 6, 5, 8, 4, 3],
@@ -218,7 +218,7 @@ void main() {
       [5, 4, 2, 9, 1, 6, 3, 7, 8],
     ];
 
-    PuzzleGrid puzzle2 = Shared.copyPuzzle(puzzle1);
+    Puzzle puzzle2 = Shared.copyPuzzle(puzzle1);
 
     for (int r = 0; r < 9; r++) {
       for (int c = 0; c < 9; c++) {

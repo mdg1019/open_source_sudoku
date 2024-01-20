@@ -4,13 +4,13 @@ import 'package:sudoku/utils/shared.dart';
 import 'package:sudoku/utils/solver.dart';
 
 class Generator {
-  static void fillDiagonalBoxes(PuzzleGrid puzzle) {
+  static void fillDiagonalBoxes(Puzzle puzzle) {
     for (int i = 0; i < 9; i += 3) {
       fillBox(puzzle, i, i);
     }
   }
 
-  static void fillBox(PuzzleGrid puzzle, int row, int column) {
+  static void fillBox(Puzzle puzzle, int row, int column) {
     List<int> numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     numbers.shuffle();
 
@@ -23,7 +23,7 @@ class Generator {
 
   static Future<GeneratedPuzzle> generatePuzzle(int givens) async {
     while (true) {
-      PuzzleGrid puzzle = Shared.createEmptyPuzzle();
+      Puzzle puzzle = Shared.createEmptyPuzzle();
 
       Generator.fillDiagonalBoxes(puzzle);
 
@@ -33,8 +33,8 @@ class Generator {
     }
   }
 
-  static GeneratedPuzzle removeDigits(PuzzleGrid puzzle, int givens) {
-    PuzzleGrid solution = Shared.copyPuzzle(puzzle);
+  static GeneratedPuzzle removeDigits(Puzzle puzzle, int givens) {
+    Puzzle solution = Shared.copyPuzzle(puzzle);
     Random rng = Random();
     int count = 0;
     int numToRemove = 81 - givens;
@@ -49,6 +49,6 @@ class Generator {
       }
     }
 
-    return GeneratedPuzzle(puzzle, puzzle, solution);
+    return GeneratedPuzzle(puzzle, solution);
   }
 }

@@ -5,7 +5,7 @@ import 'package:sudoku/utils/shared.dart';
 
 void main() {
   test('test Generator.fillBox()', () {
-    PuzzleGrid puzzle = Shared.createEmptyPuzzle();
+    Puzzle puzzle = Shared.createEmptyPuzzle();
 
     Generator.fillBox(puzzle, 0, 0);
 
@@ -23,7 +23,7 @@ void main() {
   });
 
   test('test generator.fillDiagonalBoxes()', () {
-    PuzzleGrid puzzle = Shared.createEmptyPuzzle();
+    Puzzle puzzle = Shared.createEmptyPuzzle();
 
     Generator.fillDiagonalBoxes(puzzle);
 
@@ -43,7 +43,7 @@ void main() {
   });
 
   test('test Generator.removeDigits()', () {
-    PuzzleGrid puzzle = [
+    Puzzle puzzle = [
       [8, 6, 4, 3, 7, 1, 2, 5, 9],
       [3, 2, 5, 8, 4, 9, 7, 6, 1],
       [9, 7, 1, 2, 6, 5, 8, 4, 3],
@@ -72,12 +72,6 @@ void main() {
 
   test('test Generator.generatePuzzle()', () async {
     GeneratedPuzzle generatedPuzzle = await Generator.generatePuzzle(30);
-
-    for (int r = 0; r < 9; r++) {
-      for (int c = 0; c < 9; c++) {
-        expect(generatedPuzzle.starting[r][c], generatedPuzzle.current[r][c]);
-      }
-    }
 
     expect(Shared.isSolved(generatedPuzzle.solution), true);
   });
