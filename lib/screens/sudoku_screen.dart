@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/settings.dart';
 import '../models/sudoku.dart';
+import '../utils/shared.dart';
 import '../widgets/app_bar_widget.dart';
 import '../widgets/puzzle_cell_widget.dart';
 
@@ -22,14 +23,24 @@ class SudokuScreen extends ConsumerWidget {
         data: (sudoku) {
           return Padding(
             padding: const EdgeInsets.all(10.0),
-            child: GridView.count(
-              crossAxisCount: 9,
-              children: List.generate(81, (index) {
-                int row = index ~/ 9;
-                int col = index % 9;
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Shared.getTheme(settings.themeType).gridBoxBorderColor,
+                  width: 1.0,
+                ),
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+              child: GridView.count(
+                shrinkWrap: true,
+                crossAxisCount: 9,
+                children: List.generate(81, (index) {
+                  int row = index ~/ 9;
+                  int col = index % 9;
 
-                return PuzzleCellWidget(sudoku: sudoku, settings: settings, row: row, col: col);
-              }),
+                  return PuzzleCellWidget(sudoku: sudoku, settings: settings, row: row, col: col);
+                }),
+              ),
             ),
           );
         },

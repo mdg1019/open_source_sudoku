@@ -17,10 +17,9 @@ class AppBarWidget extends ConsumerWidget implements PreferredSizeWidget {
     final settings = ref.watch(settingsNotifierProvider).value!;
 
     return AppBar(
-      title: Center(
-        child: Text(
-          title,
-        ),
+      centerTitle: true,
+      title: Text(
+        title,
       ),
       actions: [
         IconButton(

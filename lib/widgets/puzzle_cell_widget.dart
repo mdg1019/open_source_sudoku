@@ -29,28 +29,27 @@ class PuzzleCellWidget extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         border: Border(
-          top: BorderSide(
-            color: row % 3 == 0 ? theme!.gridBoxBorderColor : theme!.gridInnerBorderColor,
-            width: 1.0,
-          ),
-          right: BorderSide(
-            color: theme!.gridBoxBorderColor,
-            width: col == 8 ? 1.0 : 0.0
-          ),
-          left: BorderSide(
-            color: col % 3 == 0 ? theme!.gridBoxBorderColor : theme!.gridInnerBorderColor,
-            width: 1.0,
-          ),
-          bottom: BorderSide(
-            color: theme!.gridBoxBorderColor,
-            width: row == 8 ? 1.0 : 0.0,
-          ),
+          top: row != 0
+              ? BorderSide(
+                  color: row % 3 == 0
+                      ? theme!.gridBoxBorderColor
+                      : theme!.gridInnerBorderColor,
+                  width: 1.0,
+                )
+              : BorderSide.none,
+          left: col != 0
+              ? BorderSide(
+                  color: col % 3 == 0
+                      ? theme!.gridBoxBorderColor
+                      : theme!.gridInnerBorderColor,
+                  width: 1.0,
+                )
+              : BorderSide.none,
         ),
       ),
       child: Center(
-        child: Text(puzzleCell!.value == 0
-            ? ''
-            : puzzleCell!.value.toString(),
+        child: Text(
+          puzzleCell!.value == 0 ? '' : puzzleCell!.value.toString(),
           style: theme!.currentValueTextStyle,
         ),
       ),
