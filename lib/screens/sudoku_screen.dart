@@ -4,8 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/settings.dart';
 import '../models/sudoku.dart';
 import '../utils/shared.dart';
-import '../widgets/app_bar_widget.dart';
-import '../widgets/puzzle_cell_widget.dart';
+import '../widgets/sudoku_app_bar.dart';
+import '../widgets/sudoku_puzzle_cell.dart';
+import '../widgets/sudoku_icon_button.dart';
 
 class SudokuScreen extends ConsumerWidget {
   final String title;
@@ -18,7 +19,7 @@ class SudokuScreen extends ConsumerWidget {
     final settings = ref.watch(settingsNotifierProvider).value!;
 
     return Scaffold(
-      appBar: AppBarWidget(title: title),
+      appBar: SudokuAppBar(title: title),
       body: asyncSudoku.when(
         data: (sudoku) {
           return Padding(
@@ -35,15 +36,20 @@ class SudokuScreen extends ConsumerWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(settings.difficultyLevel, style: Shared.getTheme(settings.themeType).difficultyTextStyle),
-                      Text('Mistakes: ${sudoku.mistakes}', style: Shared.getTheme(settings.themeType).mistakesTextStyle),
+                      Text(settings.difficultyLevel,
+                          style: Shared.getTheme(settings.themeType)
+                              .difficultyTextStyle),
+                      Text('Mistakes: ${sudoku.mistakes}',
+                          style: Shared.getTheme(settings.themeType)
+                              .mistakesTextStyle),
                     ],
                   ),
                 ),
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: Shared.getTheme(settings.themeType).gridBoxBorderColor,
+                      color: Shared.getTheme(settings.themeType)
+                          .gridBoxBorderColor,
                       width: 1.0,
                     ),
                     borderRadius: BorderRadius.circular(5.0),
@@ -55,8 +61,23 @@ class SudokuScreen extends ConsumerWidget {
                       int row = index ~/ 9;
                       int col = index % 9;
 
-                      return PuzzleCellWidget(sudoku: sudoku, settings: settings, row: row, col: col);
+                      return SudokuPuzzleCell(
+                          sudoku: sudoku,
+                          settings: settings,
+                          row: row,
+                          col: col);
                     }),
+                  ),
+                ),
+                Container(
+                  child: Column(
+                    children: [
+                      Row(children: [
+                        SudokuIconButton('Reset', onPressed: () {
+                          //ref.read(sudokuNotifierProvider.notifier).newPuzzle();
+                        }),
+                      ])
+                    ],
                   ),
                 ),
               ],

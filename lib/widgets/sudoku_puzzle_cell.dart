@@ -6,8 +6,8 @@ import '../models/settings.dart';
 import '../models/sudoku.dart';
 import '../utils/shared.dart';
 
-class PuzzleCellWidget extends ConsumerWidget {
-  PuzzleCellWidget({
+class SudokuPuzzleCell extends ConsumerWidget {
+  SudokuPuzzleCell({
     super.key,
     required this.sudoku,
     required this.settings,

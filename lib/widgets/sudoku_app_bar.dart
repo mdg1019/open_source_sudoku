@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/settings.dart';
 import '../utils/shared.dart';
 
-class AppBarWidget extends ConsumerWidget implements PreferredSizeWidget {
-  const AppBarWidget({
+class SudokuAppBar extends ConsumerWidget implements PreferredSizeWidget {
+  const SudokuAppBar({
     super.key,
     required this.title,
   });

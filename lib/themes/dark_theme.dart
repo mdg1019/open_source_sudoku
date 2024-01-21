@@ -70,4 +70,7 @@ class DarkTheme implements SudokuTheme  {
   TextStyle mistakesTextStyle = const TextStyle(
     fontSize: 12.0,
   );
+
+  @override
+  Color splashColor = Colors.grey[700]!;
 }
