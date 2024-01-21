@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:sudoku/constants/difficulty_levels.dart';
 import 'package:sudoku/models/settings.dart';
 
 import '../interfaces/sudoku_theme.dart';
@@ -104,6 +107,12 @@ class Shared {
   
   static int getBoxNumber(int row, int col) {
     return (row ~/ 3) * 3 + (col ~/ 3);
+  }
+
+  static int getGivens(String levelName) {
+    DifficultyLevel difficultyLevel = DifficultyLevels.difficultyLevels.firstWhere((difficultyLevel) => difficultyLevel.name == levelName);
+
+    return Random().nextInt(difficultyLevel.high - difficultyLevel.low + 1) + difficultyLevel.low;
   }
 
   static SudokuTheme getTheme(SudokuThemeType themeType) {

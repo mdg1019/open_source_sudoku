@@ -60,4 +60,9 @@ class DarkTheme implements SudokuTheme  {
 
   @override
   Color highlightBackgroundColor = Colors.grey[600]!;
+
+  @override
+  TextStyle difficultyTextStyle = const TextStyle(
+    fontSize: 12.0,
+  );
 }

@@ -1,4 +1,7 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:sudoku/constants/difficulty_levels.dart';
+import 'package:sudoku/models/settings.dart';
 import 'package:sudoku/utils/generator.dart';
 import 'package:sudoku/utils/shared.dart';
 
@@ -53,7 +56,9 @@ class Sudoku {
 class SudokuNotifier extends _$SudokuNotifier {
   @override
   FutureOr<Sudoku> build() async {
-    return Sudoku(puzzle: await Generator.generatePuzzle(30));
+    Settings settings = ref.read(settingsNotifierProvider.notifier).state.value!;
+
+    return Sudoku(puzzle: await Generator.generatePuzzle(Shared.getGivens(settings.difficultyLevel)));
   }
 
   void newPuzzle() async {

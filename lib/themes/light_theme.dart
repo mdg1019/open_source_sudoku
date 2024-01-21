@@ -60,4 +60,9 @@ class LightTheme implements SudokuTheme {
 
   @override
   Color highlightBackgroundColor = Colors.grey[100]!;
+
+  @override
+  TextStyle difficultyTextStyle = const TextStyle(
+    fontSize: 12.0,
+  );
 }
