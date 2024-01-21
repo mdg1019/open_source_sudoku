@@ -6,9 +6,10 @@ import '../utils/shared.dart';
 
 class SudokuIconButton extends ConsumerWidget {
   final String title;
+  final IconData icon;
   final Function()? onPressed;
 
-  const SudokuIconButton(this.title, {this.onPressed, super.key});
+  const SudokuIconButton(this.title, {required this.icon, required this.onPressed, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,7 +26,7 @@ class SudokuIconButton extends ConsumerWidget {
           padding: const EdgeInsets.all(5.0),
           child: Column(
             children: [
-              const Icon(Icons.refresh),
+              Icon(icon),
               Text(
                 title,
                 style: const TextStyle(

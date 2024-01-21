@@ -72,11 +72,39 @@ class SudokuScreen extends ConsumerWidget {
                 Container(
                   child: Column(
                     children: [
-                      Row(children: [
-                        SudokuIconButton('Reset', onPressed: () {
-                          //ref.read(sudokuNotifierProvider.notifier).newPuzzle();
-                        }),
-                      ])
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          SudokuIconButton(
+                            'Reset',
+                            icon: Icons.refresh,
+                            onPressed: () {
+                              //ref.read(sudokuNotifierProvider.notifier).newPuzzle();
+                            },
+                          ),
+                          SudokuIconButton(
+                            'New',
+                            icon: Icons.autorenew,
+                            onPressed: () {
+                              ref.read(sudokuNotifierProvider.notifier).newPuzzle();
+                            },
+                          ),
+                          SudokuIconButton(
+                            'Erase',
+                            icon: Icons.delete,
+                            onPressed: () {
+                              //ref.read(sudokuNotifierProvider.notifier).newPuzzle();
+                            },
+                          ),
+                          SudokuIconButton(
+                            'Notes',
+                            icon: Icons.notes_rounded,
+                            onPressed: () {
+                              //ref.read(sudokuNotifierProvider.notifier).newPuzzle();
+                            },
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
