@@ -65,4 +65,9 @@ class LightTheme implements SudokuTheme {
   TextStyle difficultyTextStyle = const TextStyle(
     fontSize: 12.0,
   );
+
+  @override
+  TextStyle mistakesTextStyle = const TextStyle(
+    fontSize: 12.0,
+  );
 }

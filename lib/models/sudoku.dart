@@ -21,6 +21,7 @@ class Sudoku {
   final GeneratedPuzzle? puzzle;
   PuzzleGrid? puzzleGrid;
   Location? cursor = Location(0, 0);
+  int mistakes = 0;
 
   Sudoku({this.puzzle}) {
     if (puzzle != null) {

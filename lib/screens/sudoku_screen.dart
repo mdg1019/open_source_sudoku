@@ -33,8 +33,10 @@ class SudokuScreen extends ConsumerWidget {
                     left: 10.0,
                   ),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(settings.difficultyLevel, style: Shared.getTheme(settings.themeType).difficultyTextStyle),
+                      Text('Mistakes: ${sudoku.mistakes}', style: Shared.getTheme(settings.themeType).mistakesTextStyle),
                     ],
                   ),
                 ),

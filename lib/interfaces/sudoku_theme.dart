@@ -10,6 +10,7 @@ abstract class SudokuTheme {
   TextStyle appBarThemeTextStyle;
   TextStyle currentValueTextStyle;
   TextStyle difficultyTextStyle;
+  TextStyle mistakesTextStyle;
   ThemeData theme;
 
   SudokuTheme ({
@@ -23,5 +24,6 @@ abstract class SudokuTheme {
     required this.backgroundColor,
     required this.highlightBackgroundColor,
     required this.difficultyTextStyle,
+    required this.mistakesTextStyle,
   });
 }
