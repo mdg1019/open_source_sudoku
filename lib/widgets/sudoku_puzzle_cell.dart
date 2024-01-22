@@ -53,17 +53,22 @@ class SudokuPuzzleCell extends ConsumerWidget {
                 : BorderSide.none,
           ),
           borderRadius: BorderRadius.only(
-            topLeft: row == 0 && col == 0 ? const Radius.circular(5.0) : Radius.zero,
-            topRight: row == 0 && col == 8 ? const Radius.circular(5.0) : Radius.zero,
-            bottomRight: row == 8 && col == 8 ? const Radius.circular(5.0) : Radius.zero,
-            bottomLeft: row == 8 && col == 0 ? const Radius.circular(5.0) : Radius.zero,
+            topLeft:
+                row == 0 && col == 0 ? const Radius.circular(5.0) : Radius.zero,
+            topRight:
+                row == 0 && col == 8 ? const Radius.circular(5.0) : Radius.zero,
+            bottomRight:
+                row == 8 && col == 8 ? const Radius.circular(5.0) : Radius.zero,
+            bottomLeft:
+                row == 8 && col == 0 ? const Radius.circular(5.0) : Radius.zero,
           ),
         ),
         child: Center(
           child: Text(
-            puzzleCell!.current == 0 ? '' : puzzleCell!.current.toString(),
-            style: theme!.currentValueTextStyle,
-          ),
+              puzzleCell!.current == 0 ? '' : puzzleCell!.current.toString(),
+              style: puzzleCell!.current == puzzleCell!.solution
+                  ? theme!.currentValueTextStyle
+                  : theme!.wrongValueTextStyle),
         ),
       ),
     );
@@ -71,14 +76,18 @@ class SudokuPuzzleCell extends ConsumerWidget {
 
   Color getBackgroundColor() {
     if (sudoku.cursor!.row == row && sudoku.cursor!.col == col) {
+      if (puzzleCell!.current != 0 && puzzleCell!.current != puzzleCell!.solution) {
+        return theme!.wrongValueBackgroundColor;
+      }
+
       return theme!.cursorLocationBackgroundColor;
     }
 
-    if (sudoku.cursor!.row == row || sudoku.cursor!.col == col || Shared.isInSameBox(sudoku.cursor!, row, col)) {
+    if (sudoku.cursor!.row == row ||
+        sudoku.cursor!.col == col ||
+        Shared.isInSameBox(sudoku.cursor!, row, col)) {
       return theme!.highlightBackgroundColor;
     }
-
-
 
     return theme!.backgroundColor;
   }

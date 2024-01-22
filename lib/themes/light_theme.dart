@@ -73,4 +73,13 @@ class LightTheme implements SudokuTheme {
 
   @override
   Color splashColor = Colors.grey[300]!;
+
+  @override
+  TextStyle wrongValueTextStyle = const TextStyle(
+    color: Colors.red,
+    fontSize: 20.0,
+  );
+
+  @override
+  Color wrongValueBackgroundColor = Colors.red[100]!;
 }

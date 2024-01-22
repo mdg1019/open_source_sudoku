@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../interfaces/sudoku_theme.dart';
 
-class DarkTheme implements SudokuTheme  {
+class DarkTheme implements SudokuTheme {
   static final DarkTheme _instance = DarkTheme._internal();
 
   factory DarkTheme() {
@@ -34,7 +34,7 @@ class DarkTheme implements SudokuTheme  {
 
   @override
   ThemeData theme = ThemeData(
-    appBarTheme:  const AppBarTheme(
+    appBarTheme: const AppBarTheme(
       backgroundColor: Colors.black,
       foregroundColor: Colors.white,
       elevation: 0,
@@ -73,4 +73,13 @@ class DarkTheme implements SudokuTheme  {
 
   @override
   Color splashColor = Colors.grey[700]!;
+
+  @override
+  TextStyle wrongValueTextStyle = const TextStyle(
+    color: Colors.red,
+    fontSize: 20.0,
+  );
+
+  @override
+  Color wrongValueBackgroundColor = Colors.red[100]!;
 }
