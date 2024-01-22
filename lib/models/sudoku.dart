@@ -19,11 +19,12 @@ class PuzzleCell {
 
 class Sudoku {
   final GeneratedPuzzle? puzzle;
+  final String difficultyLevel;
   PuzzleGrid? puzzleGrid;
   Location? cursor = Location(0, 0);
   int mistakes = 0;
 
-  Sudoku({this.puzzle}) {
+  Sudoku({required this.puzzle, required this.difficultyLevel}) {
     if (puzzle != null) {
       generatePuzzleGrid();
     } else {
@@ -31,7 +32,7 @@ class Sudoku {
     }
   }
 
-  void generatePuzzleGrid () {
+  void generatePuzzleGrid() {
     puzzleGrid = [];
 
     for (int r = 0; r < 9; r++) {
@@ -39,9 +40,7 @@ class Sudoku {
 
       for (int c = 0; c < 9; c++) {
         PuzzleCell puzzleCell = PuzzleCell(
-            current: puzzle!.starting[r][c],
-            solution: puzzle!.solution[r][c]
-        );
+            current: puzzle!.starting[r][c], solution: puzzle!.solution[r][c]);
 
         row.add(puzzleCell);
       }
@@ -57,15 +56,26 @@ class Sudoku {
 class SudokuNotifier extends _$SudokuNotifier {
   @override
   FutureOr<Sudoku> build() async {
-    Settings settings = ref.read(settingsNotifierProvider.notifier).state.value!;
-
-    return Sudoku(puzzle: await Generator.generatePuzzle(Shared.getGivens(settings.difficultyLevel)));
+    return Sudoku(
+      puzzle: await Generator.generatePuzzle(
+        Shared.getGivens(DifficultyLevel.easy),
+      ),
+      difficultyLevel: DifficultyLevel.easy,
+    );
   }
 
-  void newPuzzle() async {
-    GeneratedPuzzle newPuzzle = await Generator.generatePuzzle(30);
+  void newPuzzle(String level) async {
+    GeneratedPuzzle newPuzzle =
+        await Generator.generatePuzzle(Shared.getGivens(level));
 
-    state = AsyncValue.data(Sudoku(puzzle: newPuzzle));
+    state = AsyncValue.data(Sudoku(puzzle: newPuzzle, difficultyLevel: level));
+  }
+
+  void resetPuzzle() {
+    state = AsyncValue.data(Sudoku(
+      puzzle: state.value!.puzzle,
+      difficultyLevel: state.value!.difficultyLevel,
+    ));
   }
 
   void setCursorLocation(int row, int col) {
@@ -77,7 +87,8 @@ class SudokuNotifier extends _$SudokuNotifier {
 
   void numberPressed(int number) {
     Sudoku newState = state.value!;
-    PuzzleCell cell = newState.puzzleGrid![newState.cursor!.row][newState.cursor!.col];
+    PuzzleCell cell =
+        newState.puzzleGrid![newState.cursor!.row][newState.cursor!.col];
 
     if (cell.current == cell.solution) return;
 
@@ -90,4 +101,3 @@ class SudokuNotifier extends _$SudokuNotifier {
     state = AsyncValue.data(newState);
   }
 }
-
