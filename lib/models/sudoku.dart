@@ -23,6 +23,7 @@ class Sudoku {
   PuzzleGrid? puzzleGrid;
   Location? cursor = Location(0, 0);
   int mistakes = 0;
+  bool isNotesMode = false;
 
   Sudoku({required this.puzzle, required this.difficultyLevel}) {
     if (puzzle != null) {
@@ -92,11 +93,26 @@ class SudokuNotifier extends _$SudokuNotifier {
 
     if (cell.current == cell.solution) return;
 
-    cell.current = number;
+    if (newState.isNotesMode) {
+      if (cell.notes.contains(number)) {
+        cell.notes.remove(number);
+      } else {
+        cell.notes.add(number);
+      }
+    } else {
+      cell.current = number;
 
-    if (cell.current != cell.solution) {
-      newState.mistakes++;
+      if (cell.current != cell.solution) {
+        newState.mistakes++;
+      }
     }
+
+    state = AsyncValue.data(newState);
+  }
+
+  void toggleNotesMode() {
+    Sudoku newState = state.value!;
+    newState.isNotesMode = !newState.isNotesMode;
 
     state = AsyncValue.data(newState);
   }

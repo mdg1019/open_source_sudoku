@@ -14,6 +14,9 @@ class SudokuIconBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final settings = ref.watch(settingsNotifierProvider).value!;
+    final Sudoku sudoku = ref.watch(sudokuNotifierProvider).value!;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -26,7 +29,7 @@ class SudokuIconBar extends ConsumerWidget {
               builder: (BuildContext context) {
                 return AlertDialog(
                   backgroundColor: Shared.getTheme(
-                          ref.watch(settingsNotifierProvider).value!.themeType)
+                          settings.themeType)
                       .backgroundColor,
                   surfaceTintColor: Colors.transparent,
                   title: const Text('Reset Puzzle'),
@@ -123,8 +126,9 @@ class SudokuIconBar extends ConsumerWidget {
         SudokuIconButton(
           'Notes',
           icon: Icons.notes_rounded,
+          color: sudoku.isNotesMode ? Shared.getTheme(settings.themeType).notesIconColor : null,
           onPressed: () {
-            //ref.read(sudokuNotifierProvider.notifier).newPuzzle();
+            ref.read(sudokuNotifierProvider.notifier).toggleNotesMode();
           },
         ),
       ],

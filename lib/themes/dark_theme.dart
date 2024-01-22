@@ -82,4 +82,16 @@ class DarkTheme implements SudokuTheme {
 
   @override
   Color wrongValueBackgroundColor = Colors.red[100]!;
+
+  @override
+  Color notesBackgroundColor = Colors.purple[900]!;
+
+  @override
+  TextStyle notesTextStyle = TextStyle(
+    color: Colors.purple[200]!,
+    fontSize: 8.0,
+  );
+
+  @override
+  Color notesIconColor = Colors.purple[200]!;
 }

@@ -64,11 +64,29 @@ class SudokuPuzzleCell extends ConsumerWidget {
           ),
         ),
         child: Center(
-          child: Text(
-              puzzleCell!.current == 0 ? '' : puzzleCell!.current.toString(),
-              style: puzzleCell!.current == puzzleCell!.solution
-                  ? theme!.currentValueTextStyle
-                  : theme!.wrongValueTextStyle),
+          child: puzzleCell!.current == 0
+              ? GridView.count(
+                  shrinkWrap: true,
+                  crossAxisCount: 3,
+                  childAspectRatio: 1.0,
+                  children: List.generate(9, (index) {
+                    return Center(
+                      child: Text(
+                          puzzleCell!.notes.contains(index + 1)
+                              ? (index + 1).toString()
+                              : '',
+                          style: Shared.getTheme(settings.themeType)
+                              .notesTextStyle),
+                    );
+                  }),
+                )
+              : Text(
+                  puzzleCell!.current == 0
+                      ? ''
+                      : puzzleCell!.current.toString(),
+                  style: puzzleCell!.current == puzzleCell!.solution
+                      ? theme!.currentValueTextStyle
+                      : theme!.wrongValueTextStyle),
         ),
       ),
     );
@@ -76,8 +94,13 @@ class SudokuPuzzleCell extends ConsumerWidget {
 
   Color getBackgroundColor() {
     if (sudoku.cursor!.row == row && sudoku.cursor!.col == col) {
-      if (puzzleCell!.current != 0 && puzzleCell!.current != puzzleCell!.solution) {
+      if (puzzleCell!.current != 0 &&
+          puzzleCell!.current != puzzleCell!.solution) {
         return theme!.wrongValueBackgroundColor;
+      }
+
+      if (sudoku.isNotesMode!) {
+        return theme!.notesBackgroundColor;
       }
 
       return theme!.cursorLocationBackgroundColor;

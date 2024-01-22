@@ -82,4 +82,16 @@ class LightTheme implements SudokuTheme {
 
   @override
   Color wrongValueBackgroundColor = Colors.red[100]!;
+
+  @override
+  Color notesBackgroundColor = Colors.purple[100]!;
+
+  @override
+  TextStyle notesTextStyle = TextStyle(
+    color: Colors.purple[300]!,
+    fontSize: 8.0,
+  );
+
+  @override
+  Color notesIconColor = Colors.purple[300]!;
 }

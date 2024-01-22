@@ -8,11 +8,14 @@ abstract class SudokuTheme {
   Color highlightBackgroundColor;
   Color splashColor;
   Color wrongValueBackgroundColor;
+  Color notesBackgroundColor;
+  Color notesIconColor;
   IconData appBarThemeIcon;
   TextStyle appBarThemeTextStyle;
   TextStyle currentValueTextStyle;
   TextStyle difficultyTextStyle;
   TextStyle mistakesTextStyle;
+  TextStyle notesTextStyle;
   TextStyle wrongValueTextStyle;
   ThemeData theme;
 
@@ -31,5 +34,8 @@ abstract class SudokuTheme {
     required this.splashColor,
     required this.wrongValueTextStyle,
     required this.wrongValueBackgroundColor,
+    required this.notesBackgroundColor,
+    required this.notesTextStyle,
+    required this.notesIconColor,
   });
 }
