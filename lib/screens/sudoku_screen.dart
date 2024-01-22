@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sudoku/widgets/sudoku_number_button.dart';
 
 import '../models/settings.dart';
 import '../models/sudoku.dart';
 import '../utils/shared.dart';
 import '../widgets/sudoku_app_bar.dart';
+import '../widgets/sudoku_icon_bar.dart';
+import '../widgets/sudoku_numbers_bar.dart';
 import '../widgets/sudoku_puzzle_cell.dart';
 import '../widgets/sudoku_icon_button.dart';
 
@@ -69,44 +72,11 @@ class SudokuScreen extends ConsumerWidget {
                     }),
                   ),
                 ),
-                Container(
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          SudokuIconButton(
-                            'Reset',
-                            icon: Icons.refresh,
-                            onPressed: () {
-                              //ref.read(sudokuNotifierProvider.notifier).newPuzzle();
-                            },
-                          ),
-                          SudokuIconButton(
-                            'New',
-                            icon: Icons.autorenew,
-                            onPressed: () {
-                              ref.read(sudokuNotifierProvider.notifier).newPuzzle();
-                            },
-                          ),
-                          SudokuIconButton(
-                            'Erase',
-                            icon: Icons.delete,
-                            onPressed: () {
-                              //ref.read(sudokuNotifierProvider.notifier).newPuzzle();
-                            },
-                          ),
-                          SudokuIconButton(
-                            'Notes',
-                            icon: Icons.notes_rounded,
-                            onPressed: () {
-                              //ref.read(sudokuNotifierProvider.notifier).newPuzzle();
-                            },
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                const Column(
+                  children: [
+                    SudokuIconBar(),
+                    SudokuNumbersBar(),
+                  ],
                 ),
               ],
             ),
