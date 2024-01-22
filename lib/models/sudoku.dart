@@ -74,5 +74,20 @@ class SudokuNotifier extends _$SudokuNotifier {
 
     state = AsyncValue.data(newState);
   }
+
+  void numberPressed(int number) {
+    Sudoku newState = state.value!;
+    PuzzleCell cell = newState.puzzleGrid![newState.cursor!.row][newState.cursor!.col];
+
+    if (cell.current == cell.solution) return;
+
+    cell.current = number;
+
+    if (cell.current != cell.solution) {
+      newState.mistakes++;
+    }
+
+    state = AsyncValue.data(newState);
+  }
 }
 

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sudoku/widgets/sudoku_number_button.dart';
 
+import '../models/sudoku.dart';
+
 class SudokuNumbersBar extends ConsumerWidget {
   const SudokuNumbersBar({
     super.key,
@@ -15,7 +17,9 @@ class SudokuNumbersBar extends ConsumerWidget {
         9,
             (index) {
           return SudokuNumberButton(index + 1,
-              onPressed: () {});
+              onPressed: () {
+                ref.read(sudokuNotifierProvider.notifier).numberPressed(index + 1);
+              });
         },
       ),
     );
