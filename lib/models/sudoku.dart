@@ -116,4 +116,20 @@ class SudokuNotifier extends _$SudokuNotifier {
 
     state = AsyncValue.data(newState);
   }
+
+  void eraseCell() {
+    Sudoku newState = state.value!;
+    PuzzleCell cell =
+        newState.puzzleGrid![newState.cursor!.row][newState.cursor!.col];
+
+    if (cell.current == cell.solution) return;
+
+    if (cell.current != 0) {
+      cell.current = 0;
+    } else  {
+      cell.notes = [];
+    }
+
+    state = AsyncValue.data(newState);
+  }
 }

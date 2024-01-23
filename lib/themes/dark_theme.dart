@@ -14,7 +14,7 @@ class DarkTheme implements SudokuTheme {
   Color gridBoxBorderColor = Colors.grey[50]!;
 
   @override
-  Color gridInnerBorderColor = Colors.grey[200]!;
+  Color gridInnerBorderColor = Colors.grey[400]!;
 
   @override
   IconData appBarThemeIcon = Icons.light_mode;

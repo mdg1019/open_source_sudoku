@@ -70,13 +70,16 @@ class SudokuPuzzleCell extends ConsumerWidget {
                   crossAxisCount: 3,
                   childAspectRatio: 1.0,
                   children: List.generate(9, (index) {
-                    return Center(
-                      child: Text(
-                          puzzleCell!.notes.contains(index + 1)
-                              ? (index + 1).toString()
-                              : '',
-                          style: Shared.getTheme(settings.themeType)
-                              .notesTextStyle),
+                    return Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Center(
+                        child: Text(
+                            puzzleCell!.notes.contains(index + 1)
+                                ? (index + 1).toString()
+                                : '',
+                            style: Shared.getTheme(settings.themeType)
+                                .notesTextStyle),
+                      ),
                     );
                   }),
                 )

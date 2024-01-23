@@ -120,7 +120,7 @@ class SudokuIconBar extends ConsumerWidget {
           'Erase',
           icon: Icons.delete,
           onPressed: () {
-            //ref.read(sudokuNotifierProvider.notifier).newPuzzle();
+            ref.read(sudokuNotifierProvider.notifier).eraseCell();
           },
         ),
         SudokuIconButton(
