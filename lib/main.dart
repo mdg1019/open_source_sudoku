@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:sudoku/screens/sudoku_screen.dart';
-import 'package:sudoku/utils/shared.dart';
+import 'package:sudoku/shared/utils.dart';
 
 import 'models/settings.dart';
 
@@ -21,7 +21,7 @@ class MyApp extends ConsumerWidget {
     return settings.when(
       data: (settings) {
         return MaterialApp(
-          theme: Shared.getTheme(settings.themeType).theme,
+          theme: Utils.getTheme(settings.themeType).theme,
           initialRoute: '/',
           routes: {
             '/': (context) => const SudokuScreen(title),
@@ -29,7 +29,9 @@ class MyApp extends ConsumerWidget {
         );
       },
       loading: () => const CircularProgressIndicator(),
-      error: (error, stackTrace) => const Text('Error'),
+      error: (error, stackTrace) {
+        return const Text('Error');
+      },
     );
   }
 }

@@ -4,7 +4,7 @@ import 'package:sudoku/widgets/sudoku_number_button.dart';
 
 import '../models/settings.dart';
 import '../models/sudoku.dart';
-import '../utils/shared.dart';
+import '../shared/utils.dart';
 import '../widgets/sudoku_app_bar.dart';
 import '../widgets/sudoku_icon_bar.dart';
 import '../widgets/sudoku_numbers_bar.dart';
@@ -40,10 +40,10 @@ class SudokuScreen extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(sudoku.difficultyLevel,
-                          style: Shared.getTheme(settings.themeType)
+                          style: Utils.getTheme(settings.themeType)
                               .difficultyTextStyle),
                       Text('Mistakes: ${sudoku.mistakes}',
-                          style: Shared.getTheme(settings.themeType)
+                          style: Utils.getTheme(settings.themeType)
                               .mistakesTextStyle),
                     ],
                   ),
@@ -51,7 +51,7 @@ class SudokuScreen extends ConsumerWidget {
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: Shared.getTheme(settings.themeType)
+                      color: Utils.getTheme(settings.themeType)
                           .gridBoxBorderColor,
                       width: 1.0,
                     ),
@@ -85,7 +85,9 @@ class SudokuScreen extends ConsumerWidget {
         loading: () => const Center(
           child: CircularProgressIndicator(),
         ),
-        error: (error, stackTrace) => const Text('Error'),
+        error: (error, stackTrace) {
+          return const Text('Error');
+        },
       ),
     );
   }

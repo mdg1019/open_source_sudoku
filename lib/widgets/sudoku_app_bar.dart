@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/settings.dart';
-import '../utils/shared.dart';
+import '../shared/utils.dart';
 
 class SudokuAppBar extends ConsumerWidget implements PreferredSizeWidget {
   const SudokuAppBar({
@@ -20,11 +20,11 @@ class SudokuAppBar extends ConsumerWidget implements PreferredSizeWidget {
       centerTitle: true,
       title: Text(
         title,
-        style: Shared.getTheme(settings.themeType).appBarThemeTextStyle,
+        style: Utils.getTheme(settings.themeType).appBarThemeTextStyle,
       ),
       actions: [
         IconButton(
-          icon: Icon(Shared.getTheme(settings.themeType).appBarThemeIcon),
+          icon: Icon(Utils.getTheme(settings.themeType).appBarThemeIcon),
           onPressed: () {
             ref.read(settingsNotifierProvider.notifier).toggleTheme();
           },

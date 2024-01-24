@@ -1,8 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sudoku/constants/difficulty_levels.dart';
-import 'package:sudoku/utils/generator.dart';
-import 'package:sudoku/utils/shared.dart';
+import 'package:sudoku/shared/utils.dart';
+
+import '../shared/sudoku_grid.dart';
 
 part 'sudoku.g.dart';
 
@@ -17,38 +18,17 @@ class PuzzleCell {
 }
 
 class Sudoku {
-  final GeneratedPuzzle? puzzle;
+  final GeneratedPuzzle puzzle;
   final String difficultyLevel;
-  PuzzleGrid? puzzleGrid;
-  Location? cursor = Location(0, 0);
+  late DisplayGrid displayGrid;
+  Location cursor = Location(0, 0);
   int mistakes = 0;
   bool isNotesMode = false;
 
   Sudoku({required this.puzzle, required this.difficultyLevel}) {
-    if (puzzle != null) {
-      generatePuzzleGrid();
-    } else {
-      puzzleGrid = null;
-    }
-  }
+    displayGrid = DisplayGrid.fromSudokuNumericGrid(puzzle);
 
-  void generatePuzzleGrid() {
-    puzzleGrid = [];
-
-    for (int r = 0; r < 9; r++) {
-      List<PuzzleCell> row = [];
-
-      for (int c = 0; c < 9; c++) {
-        PuzzleCell puzzleCell = PuzzleCell(
-            current: puzzle!.starting[r][c], solution: puzzle!.solution[r][c]);
-
-        row.add(puzzleCell);
-      }
-
-      puzzleGrid!.add(row);
-    }
-
-    cursor = Shared.findEmptyCell(puzzle!.starting);
+    cursor = displayGrid.findEmptyCell()!;
   }
 }
 
@@ -57,8 +37,8 @@ class SudokuNotifier extends _$SudokuNotifier {
   @override
   FutureOr<Sudoku> build() async {
     return Sudoku(
-      puzzle: await Generator.generatePuzzle(
-        Shared.getGivens(DifficultyLevel.easy),
+      puzzle: await NumericGrid.generatePuzzle(
+        Utils.getGivens(DifficultyLevel.easy),
       ),
       difficultyLevel: DifficultyLevel.easy,
     );
@@ -66,7 +46,7 @@ class SudokuNotifier extends _$SudokuNotifier {
 
   void newPuzzle(String level) async {
     GeneratedPuzzle newPuzzle =
-        await Generator.generatePuzzle(Shared.getGivens(level));
+        await NumericGrid.generatePuzzle(Utils.getGivens(level));
 
     state = AsyncValue.data(Sudoku(puzzle: newPuzzle, difficultyLevel: level));
   }
@@ -88,7 +68,7 @@ class SudokuNotifier extends _$SudokuNotifier {
   void numberPressed(int number) {
     Sudoku newState = state.value!;
     PuzzleCell cell =
-        newState.puzzleGrid![newState.cursor!.row][newState.cursor!.col];
+        newState.displayGrid![newState.cursor!.row][newState.cursor!.col];
 
     if (cell.current == cell.solution) return;
 
@@ -119,7 +99,7 @@ class SudokuNotifier extends _$SudokuNotifier {
   void eraseCell() {
     Sudoku newState = state.value!;
     PuzzleCell cell =
-        newState.puzzleGrid![newState.cursor!.row][newState.cursor!.col];
+        newState.displayGrid![newState.cursor!.row][newState.cursor!.col];
 
     if (cell.current == cell.solution) return;
 

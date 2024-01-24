@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sudoku/models/sudoku.dart';
 
 import '../models/settings.dart';
-import '../utils/shared.dart';
+import '../shared/utils.dart';
 
 class SudokuIconButton extends ConsumerWidget {
   final String title;
@@ -25,7 +25,7 @@ class SudokuIconButton extends ConsumerWidget {
         onTap: () {
           if (onPressed != null) onPressed!();
         },
-        splashColor: Shared.getTheme(settings.themeType).splashColor,
+        splashColor: Utils.getTheme(settings.themeType).splashColor,
         child: Padding(
           padding: const EdgeInsets.all(5.0),
           child: Column(

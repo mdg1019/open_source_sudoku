@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../interfaces/sudoku_theme.dart';
 import '../models/settings.dart';
 import '../models/sudoku.dart';
-import '../utils/shared.dart';
+import '../shared/utils.dart';
 
 class SudokuPuzzleCell extends ConsumerWidget {
   SudokuPuzzleCell({
@@ -14,8 +14,8 @@ class SudokuPuzzleCell extends ConsumerWidget {
     required this.row,
     required this.col,
   }) {
-    puzzleCell = sudoku.puzzleGrid![row][col];
-    theme = Shared.getTheme(settings.themeType);
+    puzzleCell = sudoku.displayGrid![row][col];
+    theme = Utils.getTheme(settings.themeType);
   }
 
   final Sudoku sudoku;
@@ -77,7 +77,7 @@ class SudokuPuzzleCell extends ConsumerWidget {
                             puzzleCell!.notes.contains(index + 1)
                                 ? (index + 1).toString()
                                 : '',
-                            style: Shared.getTheme(settings.themeType)
+                            style: Utils.getTheme(settings.themeType)
                                 .notesTextStyle),
                       ),
                     );
@@ -111,7 +111,7 @@ class SudokuPuzzleCell extends ConsumerWidget {
 
     if (sudoku.cursor!.row == row ||
         sudoku.cursor!.col == col ||
-        Shared.isInSameBox(sudoku.cursor!, row, col)) {
+        Utils.isInSameBox(sudoku.cursor!, row, col)) {
       return theme!.highlightBackgroundColor;
     }
 

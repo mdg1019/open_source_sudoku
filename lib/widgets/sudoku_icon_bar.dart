@@ -5,7 +5,7 @@ import 'package:sudoku/widgets/sudoku_icon_button.dart';
 
 import '../models/settings.dart';
 import '../models/sudoku.dart';
-import '../utils/shared.dart';
+import '../shared/utils.dart';
 
 class SudokuIconBar extends ConsumerWidget {
   const SudokuIconBar({
@@ -28,7 +28,7 @@ class SudokuIconBar extends ConsumerWidget {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  backgroundColor: Shared.getTheme(
+                  backgroundColor: Utils.getTheme(
                           settings.themeType)
                       .backgroundColor,
                   surfaceTintColor: Colors.transparent,
@@ -63,7 +63,7 @@ class SudokuIconBar extends ConsumerWidget {
               context: context,
               builder: (BuildContext context) {
                 return SimpleDialog(
-                  backgroundColor: Shared.getTheme(
+                  backgroundColor: Utils.getTheme(
                           ref.watch(settingsNotifierProvider).value!.themeType)
                       .backgroundColor,
                   surfaceTintColor: Colors.transparent,
@@ -126,7 +126,7 @@ class SudokuIconBar extends ConsumerWidget {
         SudokuIconButton(
           'Notes',
           icon: Icons.notes_rounded,
-          color: sudoku.isNotesMode ? Shared.getTheme(settings.themeType).notesIconColor : null,
+          color: sudoku.isNotesMode ? Utils.getTheme(settings.themeType).notesIconColor : null,
           onPressed: () {
             ref.read(sudokuNotifierProvider.notifier).toggleNotesMode();
           },

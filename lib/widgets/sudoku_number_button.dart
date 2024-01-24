@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/settings.dart';
-import '../utils/shared.dart';
+import '../shared/utils.dart';
 
 class SudokuNumberButton extends ConsumerWidget {
   final int number;
@@ -20,7 +20,7 @@ class SudokuNumberButton extends ConsumerWidget {
         onTap: () {
           if (onPressed != null) onPressed!();
         },
-        splashColor: Shared.getTheme(settings.themeType).splashColor,
+        splashColor: Utils.getTheme(settings.themeType).splashColor,
         child: Padding(
           padding: const EdgeInsets.all(5.0),
           child: Column(
