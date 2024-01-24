@@ -4,7 +4,7 @@ import 'package:sudoku/utils/shared.dart';
 import 'package:sudoku/utils/solver.dart';
 
 void main() {
-  test('test Solver.solvePuzzle() when puzzle can be solved', () {
+  test('test Solver.solvePuzzle() when puzzle can be solved', () async {
     Puzzle puzzle = [
       [0, 0, 4, 3, 0, 0, 2, 0, 9],
       [0, 0, 5, 0, 0, 9, 0, 0, 1],
@@ -17,7 +17,7 @@ void main() {
       [0, 4, 2, 9, 1, 0, 3, 0, 0],
     ];
 
-    expect(Solver.solvePuzzle(puzzle), true);
+    expect(await Solver.solvePuzzle(puzzle), true);
 
     Puzzle expected = [
       [8, 6, 4, 3, 7, 1, 2, 5, 9],
@@ -38,7 +38,7 @@ void main() {
     }
   });
 
-  test('test Solver.solvePuzzle() when puzzle cannot be solved', () {
+  test('test Solver.solvePuzzle() when puzzle cannot be solved', () async {
     Puzzle puzzle = [
       [2, 0, 0, 9, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 6, 0, 0],
@@ -51,6 +51,6 @@ void main() {
       [0, 0, 5, 0, 1, 0, 0, 0, 0],
     ];
 
-    expect(Solver.solvePuzzle(puzzle), false);
+    expect(await Solver.solvePuzzle(puzzle), false);
   });
 }

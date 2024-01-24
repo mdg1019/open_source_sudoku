@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sudoku/constants/difficulty_levels.dart';
-import 'package:sudoku/models/settings.dart';
 import 'package:sudoku/utils/generator.dart';
 import 'package:sudoku/utils/shared.dart';
 
