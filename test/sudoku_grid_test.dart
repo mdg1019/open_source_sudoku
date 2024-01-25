@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:collection/collection.dart';
 
 import 'package:sudoku/shared/location.dart';
 import 'package:sudoku/shared/numeric_grid.dart';
@@ -162,14 +163,35 @@ void main() {
     expect(puzzle.isValidPlacement(0, 1, 1), true);
     expect(puzzle.isValidPlacement(0, 0, 4), false);
   });
-  
-  test('test NumericGrid.empty()', () {
-    NumericGrid puzzleGrid = NumericGrid.empty();
 
-    for (int r = 0; r < 9; r++) {
-      for (int c = 0; c < 9; c++) {
-        expect(puzzleGrid[r][c], 0);
-      }
-    }
+  test('test SudokuGrid.noDupesAdd() does not add duplicate locations', () {
+    List<Location> locations = [Location(1, 1), Location(2, 2)];
+    NumericGrid grid = NumericGrid.empty();
+
+    grid.noDupesAdd(locations, 1, 1);
+    expect(locations.length, 2);
+
+    grid.noDupesAdd(locations, 3, 3);
+    expect(locations.length, 3);
+  });
+
+  test('test SudokuGrid.getLocationsInLineOfSightWithNumber() returns all undupped locations', () {
+    NumericGrid puzzle = NumericGrid([
+      [0, 0, 4, 3, 0, 0, 2, 0, 9],
+      [0, 0, 5, 0, 0, 9, 0, 0, 1],
+      [0, 7, 0, 0, 6, 0, 0, 4, 3],
+      [0, 0, 6, 0, 0, 2, 0, 8, 7],
+      [1, 9, 0, 0, 0, 7, 4, 0, 0],
+      [0, 5, 0, 0, 8, 3, 0, 0, 0],
+      [6, 0, 0, 0, 0, 0, 1, 0, 5],
+      [0, 0, 3, 5, 0, 8, 6, 9, 0],
+      [0, 4, 2, 9, 1, 0, 3, 0, 0],
+    ]);
+
+    List<Location> locations = puzzle.getLocationsInLineOfSightWithNumber(2, 2, 4);
+
+    expect(locations.length, 2);
+    expect(locations.firstWhereOrNull((l) => l.row == 0 && l.col == 2) != null, true);
+    expect(locations.firstWhereOrNull((l) => l.row == 2 && l.col == 7) != null, true);
   });
 }

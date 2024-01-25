@@ -1,3 +1,5 @@
+import 'package:collection/collection.dart';
+
 import 'location.dart';
 
 class SudokuGrid<T> {
@@ -39,6 +41,40 @@ class SudokuGrid<T> {
     }
 
     return false;
+  }
+
+  List<Location> getLocationsInLineOfSightWithNumber(int row, int col, int number) {
+    List<Location> locations = [];
+
+    for (int i = 0; i < 9; i++) {
+      if (hasNumber(grid[row][i], number)) {
+          noDupesAdd(locations, row, i);
+
+      }
+
+      if (hasNumber(grid[i][col], number)) {
+        noDupesAdd(locations, i, col);
+      }
+    }
+
+    int r = row - row % 3;
+    int c = col - col % 3;
+
+    for (int i = r; i < r + 3; i++) {
+      for (int j = c; j < c + 3; j++) {
+        if (hasNumber(grid[i][j], number)) {
+          noDupesAdd(locations, i, j);
+        }
+      }
+    }
+
+    return locations;
+  }
+
+  void noDupesAdd(List<Location> locations, int row, int col) {
+    if (locations.firstWhereOrNull((l) => l.row == row && l.col == col) == null) {
+      locations.add(Location(row, col));
+    }
   }
 
   bool doesColumnHaveNumber(int column, int number) {
