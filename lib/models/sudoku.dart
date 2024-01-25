@@ -1,22 +1,14 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:sudoku/constants/difficulty_levels.dart';
-import 'package:sudoku/shared/utils.dart';
 
-import '../shared/sudoku_grid.dart';
+import '../shared/difficulty_levels.dart';
+import '../shared/display_grid.dart';
+import '../shared/generated_puzzle.dart';
+import '../shared/location.dart';
+import '../shared/numeric_grid.dart';
+import '../shared/puzzle_cell.dart';
+import '../shared/utils.dart';
 
 part 'sudoku.g.dart';
-
-typedef PuzzleGrid = List<List<PuzzleCell>>;
-
-class PuzzleCell {
-  List<int> notes = [];
-  int starting = 0;
-  int current = 0;
-  int solution = 0;
-
-  PuzzleCell({required this.starting, required this.current, required this.solution});
-}
 
 class Sudoku {
   final String difficultyLevel;
@@ -26,7 +18,7 @@ class Sudoku {
   bool isNotesMode = false;
 
   Sudoku({required GeneratedPuzzle puzzle, required this.difficultyLevel}) {
-    displayGrid = DisplayGrid.fromSudokuNumericGrid(puzzle);
+    displayGrid = DisplayGrid.fromGeneratedPuzzle(puzzle);
 
     cursor = displayGrid.findEmptyCell()!;
   }

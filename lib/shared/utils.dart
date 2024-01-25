@@ -1,26 +1,11 @@
 import 'dart:math';
-
-import 'package:sudoku/constants/difficulty_levels.dart';
 import 'package:sudoku/models/settings.dart';
-import 'package:sudoku/shared/sudoku_grid.dart';
 
-import '../interfaces/sudoku_theme.dart';
+import '../themes/sudoku_theme.dart';
 import '../themes/dark_theme.dart';
 import '../themes/light_theme.dart';
-
-class Location {
-  final int row;
-  final int col;
-
-  Location(this.row, this.col);
-}
-
-class GeneratedPuzzle {
-  final NumericGrid starting;
-  final NumericGrid solution;
-
-  GeneratedPuzzle(this.starting, this.solution);
-}
+import 'difficulty_levels.dart';
+import 'location.dart';
 
 class Utils {
   

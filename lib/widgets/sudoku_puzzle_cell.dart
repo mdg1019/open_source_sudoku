@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../interfaces/sudoku_theme.dart';
+import '../themes/sudoku_theme.dart';
 import '../models/settings.dart';
 import '../models/sudoku.dart';
+import '../shared/puzzle_cell.dart';
 import '../shared/utils.dart';
 
 class SudokuPuzzleCell extends ConsumerWidget {

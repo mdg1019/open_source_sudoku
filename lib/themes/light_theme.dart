@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../interfaces/sudoku_theme.dart';
+
+import 'sudoku_theme.dart';
 
 class LightTheme implements SudokuTheme {
   static final LightTheme _instance = LightTheme._internal();

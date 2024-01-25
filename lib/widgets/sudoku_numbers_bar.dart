@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sudoku/widgets/sudoku_number_button.dart';
 
 import '../models/sudoku.dart';
+import '../widgets/sudoku_number_button.dart';
 
 class SudokuNumbersBar extends ConsumerWidget {
   const SudokuNumbersBar({

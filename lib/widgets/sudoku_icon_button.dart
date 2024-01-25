@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sudoku/models/sudoku.dart';
 
 import '../models/settings.dart';
+import '../models/sudoku.dart';
 import '../shared/utils.dart';
 
 class SudokuIconButton extends ConsumerWidget {

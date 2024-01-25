@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sudoku/constants/difficulty_levels.dart';
-import 'package:sudoku/widgets/sudoku_icon_button.dart';
 
 import '../models/settings.dart';
 import '../models/sudoku.dart';
+import '../shared/difficulty_levels.dart';
 import '../shared/utils.dart';
+import '../widgets/sudoku_icon_button.dart';
 
 class SudokuIconBar extends ConsumerWidget {
   const SudokuIconBar({
