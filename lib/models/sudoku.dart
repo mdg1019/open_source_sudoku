@@ -11,21 +11,21 @@ typedef PuzzleGrid = List<List<PuzzleCell>>;
 
 class PuzzleCell {
   List<int> notes = [];
+  int starting = 0;
   int current = 0;
   int solution = 0;
 
-  PuzzleCell({required this.current, required this.solution});
+  PuzzleCell({required this.starting, required this.current, required this.solution});
 }
 
 class Sudoku {
-  final GeneratedPuzzle puzzle;
   final String difficultyLevel;
   late DisplayGrid displayGrid;
   Location cursor = Location(0, 0);
   int mistakes = 0;
   bool isNotesMode = false;
 
-  Sudoku({required this.puzzle, required this.difficultyLevel}) {
+  Sudoku({required GeneratedPuzzle puzzle, required this.difficultyLevel}) {
     displayGrid = DisplayGrid.fromSudokuNumericGrid(puzzle);
 
     cursor = displayGrid.findEmptyCell()!;
@@ -52,10 +52,22 @@ class SudokuNotifier extends _$SudokuNotifier {
   }
 
   void resetPuzzle() {
-    state = AsyncValue.data(Sudoku(
-      puzzle: state.value!.puzzle,
-      difficultyLevel: state.value!.difficultyLevel,
-    ));
+    Sudoku resetSudoku = state.value!;
+
+    for (int r = 0; r < 9; r++) {
+      for (int c = 0; c < 9; c++) {
+        PuzzleCell cell = resetSudoku.displayGrid[r][c];
+
+        cell.current = cell.starting;
+        cell.notes = [];
+      }
+    }
+
+    resetSudoku.mistakes = 0;
+    resetSudoku.cursor = resetSudoku.displayGrid.findEmptyCell()!;
+    resetSudoku.isNotesMode = false;
+
+    state = AsyncValue.data(resetSudoku);
   }
 
   void setCursorLocation(int row, int col) {

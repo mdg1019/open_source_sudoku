@@ -194,8 +194,10 @@ class DisplayGrid extends SudokuGrid<PuzzleCell> {
 
       for (int c = 0; c < 9; c++) {
         PuzzleCell puzzleCell = PuzzleCell(
+          starting: puzzle.starting[r][c],
             current: puzzle.starting[r][c],
-            solution: puzzle.solution[r][c]);
+            solution: puzzle.solution[r][c],
+        );
 
         row.add(puzzleCell);
       }
@@ -204,19 +206,3 @@ class DisplayGrid extends SudokuGrid<PuzzleCell> {
     }
   }
 }
-
-
-// displayGrid = [];
-//
-// for (int r = 0; r < 9; r++) {
-// List<PuzzleCell> row = [];
-//
-// for (int c = 0; c < 9; c++) {
-// PuzzleCell puzzleCell = PuzzleCell(
-// current: numericGrid!.starting[r][c], solution: numericGrid!.solution[r][c]);
-//
-// row.add(puzzleCell);
-// }
-//
-// displayGrid!.add(row);
-// }
