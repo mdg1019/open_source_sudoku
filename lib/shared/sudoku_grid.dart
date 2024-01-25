@@ -43,18 +43,12 @@ class SudokuGrid<T> {
     return false;
   }
 
-  List<Location> getLocationsInLineOfSightWithNumber(int row, int col, int number) {
+  List<Location> getLocationsInLineOfSight(int row, int col) {
     List<Location> locations = [];
 
     for (int i = 0; i < 9; i++) {
-      if (hasNumber(grid[row][i], number)) {
-          noDupesAdd(locations, row, i);
-
-      }
-
-      if (hasNumber(grid[i][col], number)) {
-        noDupesAdd(locations, i, col);
-      }
+      noDupesAdd(locations, row, i);
+      noDupesAdd(locations, i, col);
     }
 
     int r = row - row % 3;
@@ -62,13 +56,16 @@ class SudokuGrid<T> {
 
     for (int i = r; i < r + 3; i++) {
       for (int j = c; j < c + 3; j++) {
-        if (hasNumber(grid[i][j], number)) {
-          noDupesAdd(locations, i, j);
-        }
+        noDupesAdd(locations, i, j);
       }
     }
 
     return locations;
+  }
+
+  List<Location> getLocationsInLineOfSightWithNumber(int row, int col, int number) {
+    return getLocationsInLineOfSight(row, col).where((l) => hasNumber(grid[l.row][l.col], number)).toList();
+
   }
 
   void noDupesAdd(List<Location> locations, int row, int col) {

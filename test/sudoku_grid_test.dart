@@ -175,6 +175,45 @@ void main() {
     expect(locations.length, 3);
   });
 
+  test('test SudokuGrid.getLocationsInLineOfSight() returns all undupped locations', () {
+    NumericGrid puzzle = NumericGrid([
+      [0, 0, 4, 3, 0, 0, 2, 0, 9],
+      [0, 0, 5, 0, 0, 9, 0, 0, 1],
+      [0, 7, 0, 0, 6, 0, 0, 4, 3],
+      [0, 0, 6, 0, 0, 2, 0, 8, 7],
+      [1, 9, 0, 0, 0, 7, 4, 0, 0],
+      [0, 5, 0, 0, 8, 3, 0, 0, 0],
+      [6, 0, 0, 0, 0, 0, 1, 0, 5],
+      [0, 0, 3, 5, 0, 8, 6, 9, 0],
+      [0, 4, 2, 9, 1, 0, 3, 0, 0],
+    ]);
+
+    List<Location> locations = puzzle.getLocationsInLineOfSight(2, 2);
+
+    expect(locations.length, 21);
+    expect(locations.firstWhereOrNull((l) => l.row == 0 && l.col == 0) != null, true);
+    expect(locations.firstWhereOrNull((l) => l.row == 0 && l.col == 1) != null, true);
+    expect(locations.firstWhereOrNull((l) => l.row == 0 && l.col == 2) != null, true);
+    expect(locations.firstWhereOrNull((l) => l.row == 1 && l.col == 0) != null, true);
+    expect(locations.firstWhereOrNull((l) => l.row == 1 && l.col == 1) != null, true);
+    expect(locations.firstWhereOrNull((l) => l.row == 1 && l.col == 2) != null, true);
+    expect(locations.firstWhereOrNull((l) => l.row == 2 && l.col == 0) != null, true);
+    expect(locations.firstWhereOrNull((l) => l.row == 2 && l.col == 1) != null, true);
+    expect(locations.firstWhereOrNull((l) => l.row == 2 && l.col == 2) != null, true);
+    expect(locations.firstWhereOrNull((l) => l.row == 2 && l.col == 3) != null, true);
+    expect(locations.firstWhereOrNull((l) => l.row == 2 && l.col == 4) != null, true);
+    expect(locations.firstWhereOrNull((l) => l.row == 2 && l.col == 5) != null, true);
+    expect(locations.firstWhereOrNull((l) => l.row == 2 && l.col == 6) != null, true);
+    expect(locations.firstWhereOrNull((l) => l.row == 2 && l.col == 7) != null, true);
+    expect(locations.firstWhereOrNull((l) => l.row == 2 && l.col == 8) != null, true);
+    expect(locations.firstWhereOrNull((l) => l.row == 3 && l.col == 2) != null, true);
+    expect(locations.firstWhereOrNull((l) => l.row == 4 && l.col == 2) != null, true);
+    expect(locations.firstWhereOrNull((l) => l.row == 5 && l.col == 2) != null, true);
+    expect(locations.firstWhereOrNull((l) => l.row == 6 && l.col == 2) != null, true);
+    expect(locations.firstWhereOrNull((l) => l.row == 7 && l.col == 2) != null, true);
+    expect(locations.firstWhereOrNull((l) => l.row == 8 && l.col == 2) != null, true);
+  });
+
   test('test SudokuGrid.getLocationsInLineOfSightWithNumber() returns all undupped locations', () {
     NumericGrid puzzle = NumericGrid([
       [0, 0, 4, 3, 0, 0, 2, 0, 9],
