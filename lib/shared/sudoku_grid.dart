@@ -136,21 +136,21 @@ class NumericGrid extends SudokuGrid<int> {
   static Future<GeneratedPuzzle> generatePuzzle(int givens) async {
     while (true) {
       NumericGrid puzzle = NumericGrid.empty();
-      puzzle._fillDiagonalBoxes();
+      puzzle.fillDiagonalBoxes();
 
       if (await puzzle.solvePuzzle()) {
-        return puzzle._removeDigits(givens);
+        return puzzle.removeDigits(givens);
       }
     }
   }
 
-  void _fillDiagonalBoxes() {
+  void fillDiagonalBoxes() {
     for (int i = 0; i < 9; i += 3) {
-      _fillBox(i, i);
+      fillBox(i, i);
     }
   }
 
-  void _fillBox(int row, int column) {
+  void fillBox(int row, int column) {
     List<int> numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     numbers.shuffle();
 
@@ -161,7 +161,7 @@ class NumericGrid extends SudokuGrid<int> {
     }
   }
 
-  GeneratedPuzzle _removeDigits(int givens) {
+  GeneratedPuzzle removeDigits(int givens) {
     NumericGrid solution = copy();
     Random rng = Random();
     int count = 0;
