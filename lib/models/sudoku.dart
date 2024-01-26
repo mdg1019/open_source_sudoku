@@ -87,6 +87,15 @@ class SudokuNotifier extends _$SudokuNotifier {
 
       if (cell.current != cell.solution) {
         newState.mistakes++;
+      } else
+      {
+        List<Location> cells = newState.displayGrid.getLocationsInLineOfSight(newState.cursor!.row, newState.cursor!.col);
+        for (var location in cells) {
+          PuzzleCell cell = newState.displayGrid[location.row][location.col];
+
+          if (cell.notes.contains(number)) {
+            cell.notes.remove(number);
+          }}
       }
     }
 
