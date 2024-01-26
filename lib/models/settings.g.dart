@@ -25,7 +25,7 @@ const _$SudokuThemeTypeEnumMap = {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$settingsNotifierHash() => r'c6bf38d89cd54c1e6781b3be2ad73bbbcdafdc67';
+String _$settingsNotifierHash() => r'4513d37b1648d225f7d96d211ede57e54ed26e55';
 
 /// See also [SettingsNotifier].
 @ProviderFor(SettingsNotifier)

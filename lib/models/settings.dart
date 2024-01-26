@@ -52,17 +52,21 @@ class SettingsNotifier extends _$SettingsNotifier {
     return await Settings.getSettings();
   }
 
+  @override
+  bool updateShouldNotify(AsyncValue<Settings> previous, AsyncValue<Settings> next) {
+
+    (() async {
+      await Settings.saveSettings(next.value!);
+    })();
+
+    return true;
+  }
+
   void toggleTheme() {
     final newThemeType = (state.value?.themeType == SudokuThemeType.light)
         ? SudokuThemeType.dark
         : SudokuThemeType.light;
 
-    final newSettings = Settings(themeType: newThemeType);
-
-    (() async {
-      await Settings.saveSettings(newSettings);
-    })();
-
-    state = AsyncValue.data(newSettings);
+    state = AsyncValue.data(Settings(themeType: newThemeType));
   }
 }
