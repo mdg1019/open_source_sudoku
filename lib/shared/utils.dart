@@ -1,14 +1,13 @@
 import 'dart:math';
-import 'package:sudoku/models/settings.dart';
 
 import '../themes/sudoku_theme.dart';
 import '../themes/dark_theme.dart';
 import '../themes/light_theme.dart';
 import 'difficulty_levels.dart';
+import 'enums.dart';
 import 'location.dart';
 
 class Utils {
-  
   static int getBoxNumber(int row, int col) {
     return (row ~/ 3) * 3 + (col ~/ 3);
   }

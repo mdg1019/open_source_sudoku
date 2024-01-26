@@ -1,45 +1,68 @@
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sudoku/shared/difficulty_levels.dart';
+import 'dart:convert';
+import 'dart:io';
 
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import '../shared/enums.dart';
+
+part 'settings.freezed.dart';
 part 'settings.g.dart';
 
-enum SudokuThemeType { light, dark }
-
-class Settings {
-  final SudokuThemeType themeType;
-
+@freezed
+class Settings with _$Settings{
   static const String themeTypeName = 'themeType';
 
-  Settings({required this.themeType});
+  factory Settings({
+    @JsonKey(name: 'theme_type') required SudokuThemeType themeType,
+  }) = _Settings;
+
+  factory Settings.fromJson(Map<String, dynamic> json) => _$SettingsFromJson(json);
+
+  static Future<Settings> getSettings() async {
+    final Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    final String path = '${documentsDirectory.path}/settings.json';
+    final File file = File(path);
+
+    if (await file.exists()) {
+      return Settings.fromJson(jsonDecode(await file.readAsString()));
+    }
+
+    final Settings settings = Settings(themeType: SudokuThemeType.light);
+
+    await file.writeAsString(jsonEncode(settings.toJson()));
+
+    return settings;
+  }
+
+  static Future<void> saveSettings(Settings settings) async {
+    final Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    final String path = '${documentsDirectory.path}/settings.json';
+    final File file = File(path);
+
+    await file.writeAsString(jsonEncode(settings.toJson()));
+  }
 }
 
 @riverpod
 class SettingsNotifier extends _$SettingsNotifier {
-  SharedPreferences? sharedPreferences;
-
   @override
   FutureOr<Settings> build() async {
-    sharedPreferences = await SharedPreferences.getInstance();
-    final themeType = SudokuThemeType.values[
-        sharedPreferences!.getInt(Settings.themeTypeName) ??
-            (() {
-              sharedPreferences!
-                  .setInt(Settings.themeTypeName, SudokuThemeType.light.index);
-              return SudokuThemeType.light.index;
-            })()];
-    return Settings(themeType: themeType);
+    return await Settings.getSettings();
   }
 
   void toggleTheme() {
-    final themeType = (state.value?.themeType == SudokuThemeType.light)
+    final newThemeType = (state.value?.themeType == SudokuThemeType.light)
         ? SudokuThemeType.dark
         : SudokuThemeType.light;
-    sharedPreferences!.setInt('themeType', themeType.index);
-    state = AsyncValue.data(
-      Settings(
-        themeType: themeType,
-      ),
-    );
+
+    final newSettings = Settings(themeType: newThemeType);
+
+    (() async {
+      await Settings.saveSettings(newSettings);
+    })();
+
+    state = AsyncValue.data(newSettings);
   }
 }

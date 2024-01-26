@@ -1,0 +1,1 @@
+enum SudokuThemeType { light, dark }
