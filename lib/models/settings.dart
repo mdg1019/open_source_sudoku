@@ -1,24 +1,22 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../shared/enums.dart';
 
-part 'settings.freezed.dart';
 part 'settings.g.dart';
 
-@freezed
-class Settings with _$Settings{
-  static const String themeTypeName = 'themeType';
+class Settings {
+  final SudokuThemeType themeType;
 
-  factory Settings({
-    @JsonKey(name: 'theme_type') required SudokuThemeType themeType,
-  }) = _Settings;
+  Settings({required this.themeType});
 
-  factory Settings.fromJson(Map<String, dynamic> json) => _$SettingsFromJson(json);
+  Settings.fromJson(Map<String, dynamic> json)
+      : themeType = SudokuThemeType.values[json['themeType']];
+
+  Map<String, dynamic> toJson() => { 'themeType': themeType.index };
 
   static Future<Settings> getSettings() async {
     final Directory documentsDirectory = await getApplicationDocumentsDirectory();
