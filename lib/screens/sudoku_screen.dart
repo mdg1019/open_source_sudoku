@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sudoku/widgets/sudoku_number_button.dart';
 
 import '../models/settings.dart';
 import '../models/sudoku.dart';
@@ -9,7 +8,6 @@ import '../widgets/sudoku_app_bar.dart';
 import '../widgets/sudoku_icon_bar.dart';
 import '../widgets/sudoku_numbers_bar.dart';
 import '../widgets/sudoku_puzzle_cell.dart';
-import '../widgets/sudoku_icon_button.dart';
 
 class SudokuScreen extends ConsumerWidget {
   final String title;
