@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../shared/difficulty_levels.dart';
@@ -22,18 +25,48 @@ class Sudoku {
 
     cursor = displayGrid.findEmptyCell()!;
   }
+
+  Sudoku.fromJson(Map<String, dynamic> json)
+      : difficultyLevel = json['difficultyLevel'],
+        displayGrid = DisplayGrid.fromJson(json['displayGrid']),
+        cursor = Location.fromJson(json['cursor']),
+        mistakes = json['mistakes'],
+        isNotesMode = json['isNotesMode'];
+
+  Map<String, dynamic> toJson() => {
+    'difficultyLevel': difficultyLevel,
+    'displayGrid': displayGrid,
+    'cursor': cursor,
+    'mistakes': mistakes,
+    'isNotesMode': isNotesMode
+  };
+
+  static Future<Sudoku> getSudoku() async {
+    return Utils.getJson('sudoku.json',
+      (json) => Sudoku.fromJson(json),
+      Sudoku(puzzle: await NumericGrid.generatePuzzle(Utils.getGivens(DifficultyLevel.easy)), difficultyLevel: DifficultyLevel.easy));
+  }
+
+  static Future<void> saveSudoku(Sudoku sudoku) async {
+    await Utils.saveJson(sudoku.toJson(), 'sudoku.json');
+  }
 }
 
 @riverpod
 class SudokuNotifier extends _$SudokuNotifier {
   @override
   FutureOr<Sudoku> build() async {
-    return Sudoku(
-      puzzle: await NumericGrid.generatePuzzle(
-        Utils.getGivens(DifficultyLevel.easy),
-      ),
-      difficultyLevel: DifficultyLevel.easy,
-    );
+    return await Sudoku.getSudoku();
+  }
+
+  @override
+  bool updateShouldNotify(AsyncValue<Sudoku> previous, AsyncValue<Sudoku> next) {
+
+    (() async {
+      await Sudoku.saveSudoku(next.value!);
+    })();
+
+    return true;
   }
 
   void newPuzzle(String level) async {

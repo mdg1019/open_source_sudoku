@@ -22,7 +22,7 @@ class Utils {
 
     return Random().nextInt(difficultyLevel.high - difficultyLevel.low + 1) + difficultyLevel.low;
   }
-  static Future<T> getJson<T extends Settings>(String filename, T Function(Map<String, dynamic> json) fromJson, T defaultValue) async {
+  static Future<T> getJson<T>(String filename, T Function(Map<String, dynamic> json) fromJson, T defaultValue) async {
     final Directory documentsDirectory = await getApplicationDocumentsDirectory();
     final String path = '${documentsDirectory.path}/$filename';
     final File file = File(path);
@@ -49,11 +49,11 @@ class Utils {
     return getBoxNumber(location.row, location.col) == getBoxNumber(row, col);
   }
 
-  static Future<void> saveJson<T extends Settings>(T obj, String filename) async {
+  static Future<void> saveJson<T>(Map<String, dynamic> json, String filename) async {
     final Directory documentsDirectory = await getApplicationDocumentsDirectory();
     final String path = '${documentsDirectory.path}/$filename';
     final File file = File(path);
 
-    await file.writeAsString(jsonEncode(obj.toJson()));
+    await file.writeAsString(jsonEncode(json));
   }
 }

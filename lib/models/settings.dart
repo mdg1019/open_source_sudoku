@@ -20,7 +20,7 @@ class Settings {
   }
 
   static Future<void> saveSettings(Settings settings) async {
-    await Utils.saveJson(settings, 'settings.json');
+    await Utils.saveJson(settings.toJson(), 'settings.json');
   }
 }
 
