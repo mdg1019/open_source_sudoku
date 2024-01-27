@@ -5,6 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../shared/enums.dart';
+import '../shared/utils.dart';
 
 part 'settings.g.dart';
 
@@ -19,27 +20,11 @@ class Settings {
   Map<String, dynamic> toJson() => { 'themeType': themeType.index };
 
   static Future<Settings> getSettings() async {
-    final Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    final String path = '${documentsDirectory.path}/settings.json';
-    final File file = File(path);
-
-    if (await file.exists()) {
-      return Settings.fromJson(jsonDecode(await file.readAsString()));
-    }
-
-    final Settings settings = Settings(themeType: SudokuThemeType.light);
-
-    await file.writeAsString(jsonEncode(settings.toJson()));
-
-    return settings;
+    return Utils.getJson('settings.json', (json) => Settings.fromJson(json), Settings(themeType: SudokuThemeType.light));
   }
 
   static Future<void> saveSettings(Settings settings) async {
-    final Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    final String path = '${documentsDirectory.path}/settings.json';
-    final File file = File(path);
-
-    await file.writeAsString(jsonEncode(settings.toJson()));
+    await Utils.saveJson(settings, 'settings.json');
   }
 }
 
