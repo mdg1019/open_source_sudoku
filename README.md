@@ -1,16 +1,5 @@
-# sudoku
+# Open Source Sudoku
 
-A new Flutter project.
+A Sudoku app built with Flutter and Dart.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+At present, the app only supports Android. iOS support is not planned. I will have nothing to do with Apple since my account, which was supposed to be protected by two-factor authentication was hacked. Apple support said that they'd have somebody from security contact me within 3 to 4 business days with an explanation of how my account was hacked. Three years later, I'm still waiting for their explanation. So I will have nothing to do with Apple until they explain what happened. Totally shitty company to do business with.
