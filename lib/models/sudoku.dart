@@ -1,11 +1,7 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../shared/difficulty_levels.dart';
 import '../shared/display_grid.dart';
-import '../shared/generated_puzzle.dart';
 import '../shared/location.dart';
 import '../shared/numeric_grid.dart';
 import '../shared/puzzle_cell.dart';
@@ -20,7 +16,7 @@ class Sudoku {
   int mistakes = 0;
   bool isNotesMode = false;
 
-  Sudoku({required GeneratedPuzzle puzzle, required this.difficultyLevel}) {
+  Sudoku({required (NumericGrid, NumericGrid) puzzle, required this.difficultyLevel}) {
     displayGrid = DisplayGrid.fromGeneratedPuzzle(puzzle);
 
     cursor = displayGrid.findEmptyCell()!;
@@ -70,7 +66,7 @@ class SudokuNotifier extends _$SudokuNotifier {
   }
 
   void newPuzzle(String level) async {
-    GeneratedPuzzle newPuzzle =
+    (NumericGrid, NumericGrid) newPuzzle =
         await NumericGrid.generatePuzzle(Utils.getGivens(level));
 
     state = AsyncValue.data(Sudoku(puzzle: newPuzzle, difficultyLevel: level));

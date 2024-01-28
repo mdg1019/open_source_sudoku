@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'generated_puzzle.dart';
 import 'location.dart';
 import 'sudoku_grid.dart';
 
@@ -50,7 +49,7 @@ class NumericGrid extends SudokuGrid<int> {
     return false;
   }
 
-  static Future<GeneratedPuzzle> generatePuzzle(int givens) async {
+  static Future<(NumericGrid, NumericGrid)> generatePuzzle(int givens) async {
     while (true) {
       NumericGrid puzzle = NumericGrid.empty();
       puzzle.fillDiagonalBoxes();
@@ -78,7 +77,7 @@ class NumericGrid extends SudokuGrid<int> {
     }
   }
 
-  GeneratedPuzzle removeDigits(int givens) {
+  (NumericGrid, NumericGrid) removeDigits(int givens) {
     NumericGrid solution = copy();
     Random rng = Random();
     int count = 0;
@@ -94,6 +93,6 @@ class NumericGrid extends SudokuGrid<int> {
       }
     }
 
-    return GeneratedPuzzle(this, solution);
+    return (this, solution);
   }
 }

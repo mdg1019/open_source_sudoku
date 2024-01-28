@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:sudoku/shared/generated_puzzle.dart';
 import 'package:sudoku/shared/numeric_grid.dart';
 import 'package:sudoku/shared/sudoku_grid.dart';
 
@@ -101,13 +100,13 @@ void main() {
       [5, 4, 2, 9, 1, 6, 3, 7, 8],
     ]);
 
-    GeneratedPuzzle generatedPuzzle = puzzle.removeDigits(30);
+    var (starting, _)  = puzzle.removeDigits(30);
 
     int numberOfGivens = 0;
 
     for (int r = 0; r < 9; r++) {
       for (int c = 0; c < 9; c++) {
-        if (generatedPuzzle.starting[r][c] != 0) {
+        if (starting[r][c] != 0) {
           numberOfGivens++;
         }
       }
@@ -117,9 +116,9 @@ void main() {
   });
 
   test('test NumericGrid.generatePuzzle()', () async {
-    GeneratedPuzzle generatedPuzzle = await NumericGrid.generatePuzzle(30);
+    var (_, solution)  = await NumericGrid.generatePuzzle(30);
 
-    expect(generatedPuzzle.solution.isSolved(), true);
+    expect(solution.isSolved(), true);
   });
 
   test('test NumericGrid.empty()', () {
