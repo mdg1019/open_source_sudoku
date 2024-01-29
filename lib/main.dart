@@ -28,9 +28,27 @@ class MyApp extends ConsumerWidget {
           },
         );
       },
-      loading: () => const CircularProgressIndicator(),
+      loading: () {
+        return MaterialApp(
+          builder: (BuildContext context, Widget? child) {
+            return const Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          },
+        );
+      },
       error: (error, stackTrace) {
-        return const Text('Error');
+        return MaterialApp(
+          builder: (BuildContext context, Widget? child) {
+            return const Scaffold(
+              body: Center(
+                child: const Text('Error'),
+              ),
+            );
+          },
+        );
       },
     );
   }
