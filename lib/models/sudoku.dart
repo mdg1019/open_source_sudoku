@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:sudoku/shared/pregenerated_puzzles.dart';
 
 import '../shared/difficulty_levels.dart';
 import '../shared/display_grid.dart';
@@ -37,10 +40,27 @@ class Sudoku {
     'isNotesMode': isNotesMode
   };
 
+  static (NumericGrid, NumericGrid) getPuzzle(String level) {
+    Random rng = Random();
+
+    PreGeneratedPuzzle preGeneratedPuzzle = switch (level) {
+      DifficultyLevel.easy => PreGeneratedPuzzle.easyPuzzles[rng.nextInt(PreGeneratedPuzzle.easyPuzzles.length)],
+      DifficultyLevel.medium => PreGeneratedPuzzle.mediumPuzzles[rng.nextInt(PreGeneratedPuzzle.mediumPuzzles.length)],
+      DifficultyLevel.hard => PreGeneratedPuzzle.hardPuzzles[rng.nextInt(PreGeneratedPuzzle.hardPuzzles.length)],
+      DifficultyLevel.expert => PreGeneratedPuzzle.expertPuzzles[rng.nextInt(PreGeneratedPuzzle.expertPuzzles.length)],
+      _ => throw Exception('Invalid difficulty level')
+    };
+
+    return (
+    NumericGrid.fromString(preGeneratedPuzzle!.start),
+    NumericGrid.fromString(preGeneratedPuzzle!.solution)
+    );
+  }
+
   static Future<Sudoku> getSudoku() async {
     return Utils.getJson('sudoku.json',
       (json) => Sudoku.fromJson(json),
-      Sudoku(puzzle: await NumericGrid.generatePuzzle(Utils.getGivens(DifficultyLevel.easy)), difficultyLevel: DifficultyLevel.easy));
+      Sudoku(puzzle: Sudoku.getPuzzle(DifficultyLevel.easy), difficultyLevel: DifficultyLevel.easy));
   }
 
   static Future<void> saveSudoku(Sudoku sudoku) async {
@@ -65,11 +85,8 @@ class SudokuNotifier extends _$SudokuNotifier {
     return true;
   }
 
-  void newPuzzle(String level) async {
-    (NumericGrid, NumericGrid) newPuzzle =
-        await NumericGrid.generatePuzzle(Utils.getGivens(level));
-
-    state = AsyncValue.data(Sudoku(puzzle: newPuzzle, difficultyLevel: level));
+  void newPuzzle(String level) {
+    state = AsyncValue.data(Sudoku(puzzle: Sudoku.getPuzzle(level), difficultyLevel: level));
   }
 
   void resetPuzzle() {
