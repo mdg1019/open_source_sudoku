@@ -18,6 +18,7 @@ class Sudoku {
   Location cursor = Location(0, 0);
   int mistakes = 0;
   bool isNotesMode = false;
+  bool isSolved = false;
 
   Sudoku({required (NumericGrid, NumericGrid) puzzle, required this.difficultyLevel}) {
     displayGrid = DisplayGrid.fromGeneratedPuzzle(puzzle);
@@ -30,14 +31,16 @@ class Sudoku {
         displayGrid = DisplayGrid.fromJson(json['displayGrid']),
         cursor = Location.fromJson(json['cursor']),
         mistakes = json['mistakes'],
-        isNotesMode = json['isNotesMode'];
+        isNotesMode = json['isNotesMode'],
+        isSolved = json['isSolved'];
 
   Map<String, dynamic> toJson() => {
     'difficultyLevel': difficultyLevel,
     'displayGrid': displayGrid,
     'cursor': cursor,
     'mistakes': mistakes,
-    'isNotesMode': isNotesMode
+    'isNotesMode': isNotesMode,
+    'isSolved': isSolved
   };
 
   static (NumericGrid, NumericGrid) getPuzzle(String level) {
@@ -104,11 +107,14 @@ class SudokuNotifier extends _$SudokuNotifier {
     resetSudoku.mistakes = 0;
     resetSudoku.cursor = resetSudoku.displayGrid.findEmptyCell()!;
     resetSudoku.isNotesMode = false;
+    resetSudoku.isSolved = false;
 
     state = AsyncValue.data(resetSudoku);
   }
 
   void setCursorLocation(int row, int col) {
+    if (state.value!.isSolved) return;
+
     Sudoku newState = state.value!;
     newState.cursor = Location(row, col);
 
@@ -116,6 +122,8 @@ class SudokuNotifier extends _$SudokuNotifier {
   }
 
   void numberPressed(int number) {
+    if (state.value!.isSolved) return;
+
     Sudoku newState = state.value!;
     PuzzleCell cell =
         newState.displayGrid![newState.cursor!.row][newState.cursor!.col];
@@ -133,8 +141,9 @@ class SudokuNotifier extends _$SudokuNotifier {
 
       if (cell.current != cell.solution) {
         newState.mistakes++;
-      } else
-      {
+      } else {
+        newState.isSolved = newState.displayGrid.isSolved();
+
         List<Location> cells = newState.displayGrid.getLocationsInLineOfSight(newState.cursor!.row, newState.cursor!.col);
         for (var location in cells) {
           PuzzleCell cell = newState.displayGrid[location.row][location.col];
@@ -149,6 +158,8 @@ class SudokuNotifier extends _$SudokuNotifier {
   }
 
   void toggleNotesMode() {
+    if (state.value!.isSolved) return;
+
     Sudoku newState = state.value!;
     newState.isNotesMode = !newState.isNotesMode;
 
@@ -156,6 +167,8 @@ class SudokuNotifier extends _$SudokuNotifier {
   }
 
   void eraseCell() {
+    if (state.value!.isSolved) return;
+
     Sudoku newState = state.value!;
     PuzzleCell cell =
         newState.displayGrid![newState.cursor!.row][newState.cursor!.col];

@@ -19,6 +19,8 @@ class SudokuScreen extends ConsumerWidget {
     final asyncSudoku = ref.watch(sudokuNotifierProvider);
     final settings = ref.watch(settingsNotifierProvider).value!;
 
+    const double minus15DegreesInRadians = -0.261799;
+
     return Scaffold(
       appBar: SudokuAppBar(title: title),
       body: asyncSudoku.when(
@@ -46,29 +48,51 @@ class SudokuScreen extends ConsumerWidget {
                     ],
                   ),
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Utils.getTheme(settings.themeType)
-                          .gridBoxBorderColor,
-                      width: 1.0,
-                    ),
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  child: GridView.count(
-                    shrinkWrap: true,
-                    crossAxisCount: 9,
-                    children: List.generate(81, (index) {
-                      int row = index ~/ 9;
-                      int col = index % 9;
+                Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Utils.getTheme(settings.themeType)
+                              .gridBoxBorderColor,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      child: GridView.count(
+                        shrinkWrap: true,
+                        crossAxisCount: 9,
+                        children: List.generate(81, (index) {
+                          int row = index ~/ 9;
+                          int col = index % 9;
 
-                      return SudokuPuzzleCell(
-                          sudoku: sudoku,
-                          settings: settings,
-                          row: row,
-                          col: col);
-                    }),
-                  ),
+                          return SudokuPuzzleCell(
+                              sudoku: sudoku,
+                              settings: settings,
+                              row: row,
+                              col: col);
+                        }),
+                      ),
+                    ),
+                    Visibility(
+                      visible: sudoku.isSolved,
+                      child: Positioned.fill(
+                        child: Center(
+                          child: Transform.rotate(
+                            angle: minus15DegreesInRadians,
+                            child: const Text(
+                              '[Solved]',
+                              style: TextStyle(
+                                fontFamily: 'Old Stamper',
+                                fontSize: 80.0,
+                                color: Colors.red,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 const Column(
                   children: [
